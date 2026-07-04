@@ -415,7 +415,7 @@ function About() {
                 className="rounded-2xl border border-border bg-card p-4 shadow-soft hover-lift"
               >
                 <div className="mb-2 grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
-                  <c.icon className="h-4.5 w-4.5" />
+                  <c.icon className="h-4 w-4" />
                 </div>
                 <div className="text-sm font-semibold text-foreground">{c.title}</div>
                 <div className="text-xs text-muted-foreground">{c.sub}</div>
@@ -1012,7 +1012,7 @@ function FloatingActions() {
         <a
           href={`tel:${PHONE}`}
           aria-label="Call now"
-          className="grid h-13 w-13 place-items-center rounded-full bg-primary p-3.5 text-primary-foreground shadow-elevated sm:hidden"
+          className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-elevated sm:hidden"
         >
           <Phone className="h-5 w-5" />
         </a>

@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur.",
       },
       { name: "author", content: "Dr. Rakesh Godara" },
-      { property: "og:title", content: "Dr. Rakesh Godara — Senior Pulmonologist, Jaipur" },
+      { property: "og:title", content: "Dr. Rakesh Godara — Senior Pulmonologist & Critical Care Specialist, Jaipur" },
       {
         property: "og:description",
         content:
@@ -92,6 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Dr. Rakesh Godara — Senior Pulmonologist & Critical Care Specialist, Jaipur" },
+      { name: "description", content: "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur." },
+      { property: "og:description", content: "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur." },
+      { name: "twitter:description", content: "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/60f40ef0-52ed-44e2-aead-a67ba64a414c/id-preview-15f60f5d--93893c56-8b22-4cde-abfc-d0547cce6b37.lovable.app-1783194963499.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/60f40ef0-52ed-44e2-aead-a67ba64a414c/id-preview-15f60f5d--93893c56-8b22-4cde-abfc-d0547cce6b37.lovable.app-1783194963499.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

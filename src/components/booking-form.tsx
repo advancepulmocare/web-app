@@ -21,9 +21,17 @@ const CONCERNS = [
   "General Chest / Lung Consultation",
 ];
 
-// Clinic hours: Mon–Sat 5–8 PM, Sun 6–8 PM
-const WEEKDAY_SLOTS = ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"];
-const SUNDAY_SLOTS = ["6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"];
+// Clinic hours: Mon–Sat 11 AM – 3 PM
+const WEEKDAY_SLOTS = [
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "01:00 PM",
+  "02:00 PM",
+  "03:00 PM",
+  "04:00 PM",
+];
+const SUNDAY_SLOTS: string[] = [];
 
 const WA_NUMBER = "919928683032";
 
@@ -31,15 +39,11 @@ const schema = z.object({
   concern: z.string().min(1, "Please select a medical concern"),
   date: z.string().min(1, "Please choose a date"),
   slot: z.string().min(1, "Please pick a time slot"),
-  name: z
-    .string()
-    .trim()
-    .min(2, "Full name is required")
-    .max(80, "Name is too long"),
+  name: z.string().trim().min(2, "Full name is required").max(80, "Name is too long"),
   mobile: z
     .string()
     .trim()
-    .regex(/^(?:\+?91[\-\s]?)?[6-9]\d{9}$/, "Enter a valid Indian mobile number"),
+    .regex(/^(?:\+?91[-\s]?)?[6-9]\d{9}$/, "Enter a valid Indian mobile number"),
   symptoms: z.string().trim().max(500, "Please keep under 500 characters").optional(),
 });
 
@@ -76,6 +80,13 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
   const [mode, setMode] = useState<"interactive" | "whatsapp">("interactive");
   const days = useMemo(() => nextDays(7), []);
 
+  const defaultDate = useMemo(() => {
+    const firstAvailable = days.find((d) => d.getDay() !== 0);
+    return firstAvailable
+      ? firstAvailable.toISOString().slice(0, 10)
+      : days[0].toISOString().slice(0, 10);
+  }, [days]);
+
   const {
     register,
     handleSubmit,
@@ -87,7 +98,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
     resolver: zodResolver(schema),
     defaultValues: {
       concern: "",
-      date: days[1].toISOString().slice(0, 10),
+      date: defaultDate,
       slot: "",
       name: "",
       mobile: "",
@@ -159,8 +170,8 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
         <div className="rounded-2xl border border-border bg-muted/50 p-6 text-center">
           <MessageCircle className="mx-auto h-8 w-8 text-support" />
           <p className="mt-3 text-sm text-muted-foreground">
-            Chat directly with our coordinator on WhatsApp — we usually respond within 15
-            minutes during clinic hours.
+            Chat directly with our coordinator on WhatsApp — we usually respond within 15 minutes
+            during clinic hours.
           </p>
           <a
             href={`https://api.whatsapp.com/send/?phone=${WA_NUMBER}&text=Hi%2C%20I%27d%20like%20to%20book%20a%20consultation%20at%20Advance%20Pulmo%20Care.&type=phone_number`}
@@ -174,7 +185,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
         </div>
       ) : (
         <>
-          {/* 1. Concern */}
+          {/* 1. Select Medical Concern */}
           <fieldset>
             <legend className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
               1. Select Medical Concern <span className="text-destructive">*</span>
@@ -189,8 +200,8 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
                     onClick={() => setValue("concern", c, { shouldValidate: true })}
                     className={`rounded-xl border px-3 py-2.5 text-left text-sm transition ${
                       active
-                        ? "border-primary bg-primary-soft/50 text-primary shadow-soft"
-                        : "border-border bg-card text-foreground hover:border-primary/40"
+                        ? "border-[#0066cc] bg-blue-50/40 text-[#004b93] font-semibold shadow-sm"
+                        : "border-border bg-card text-foreground hover:border-[#0066cc]/40"
                     }`}
                   >
                     {c}
@@ -203,7 +214,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
             )}
           </fieldset>
 
-          {/* 2. Date */}
+          {/* 2. Choose Preferred Date */}
           <fieldset>
             <legend className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
               2. Choose Preferred Date <span className="text-destructive">*</span>
@@ -212,6 +223,24 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
               {days.map((d) => {
                 const f = fmtDay(d);
                 const active = dateVal === f.key;
+                if (f.isSun) {
+                  return (
+                    <div
+                      key={f.key}
+                      className="flex flex-col items-center gap-0.5 rounded-xl border border-dashed border-border bg-muted/40 py-2 text-center text-muted-foreground/50 opacity-60 select-none cursor-not-allowed"
+                    >
+                      <span className="text-[10px] font-semibold uppercase tracking-wider">
+                        {f.dow}
+                      </span>
+                      <span className="font-display text-lg font-semibold leading-none text-muted-foreground/75">
+                        {f.day}
+                      </span>
+                      <span className="text-[9px] uppercase text-destructive/80 font-semibold tracking-wide">
+                        Closed
+                      </span>
+                    </div>
+                  );
+                }
                 return (
                   <button
                     key={f.key}
@@ -222,16 +251,14 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
                     }}
                     className={`flex flex-col items-center gap-0.5 rounded-xl border py-2 text-center transition ${
                       active
-                        ? "border-primary bg-primary text-primary-foreground shadow-soft"
-                        : "border-border bg-card text-foreground hover:border-primary/40"
+                        ? "border-[#0a1e36] bg-[#0a1e36] text-white shadow-soft"
+                        : "border-border bg-card text-foreground hover:border-primary/45"
                     }`}
                   >
                     <span className="text-[10px] font-semibold uppercase tracking-wider opacity-80">
                       {f.dow}
                     </span>
-                    <span className="font-display text-lg font-semibold leading-none">
-                      {f.day}
-                    </span>
+                    <span className="font-display text-lg font-semibold leading-none">{f.day}</span>
                     <span className="text-[10px] uppercase opacity-70">{f.mon}</span>
                   </button>
                 );
@@ -239,13 +266,13 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
             </div>
           </fieldset>
 
-          {/* 3. Slot */}
+          {/* 3. Pick Time Slot */}
           <fieldset>
             <legend className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
               3. Pick Time Slot <span className="text-destructive">*</span>
-              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium normal-case tracking-normal text-muted-foreground">
+              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-muted-foreground">
                 <Clock className="h-3 w-3" />
-                {currentDay.getDay() === 0 ? "Sun 6–8 PM" : "Mon–Sat 5–8 PM"}
+                Mon–Sat 11:00 AM – 3:00 PM
               </span>
             </legend>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -258,8 +285,8 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
                     onClick={() => setValue("slot", s, { shouldValidate: true })}
                     className={`inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-sm transition ${
                       active
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-card text-foreground hover:border-primary/40"
+                        ? "border-blue-600 bg-blue-600 text-white shadow-sm"
+                        : "border-border bg-card text-foreground hover:border-[#0066cc]/40"
                     }`}
                   >
                     <Clock className="h-3.5 w-3.5" /> {s}
@@ -272,7 +299,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
             )}
           </fieldset>
 
-          {/* 4. Name + Mobile */}
+          {/* 4. Full Name + Mobile Number */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
@@ -328,7 +355,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5 disabled:opacity-60"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0a1e36] px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:bg-[#051120] hover:-translate-y-0.5 disabled:opacity-60"
           >
             <CalendarIcon className="h-4 w-4" />
             Register Consultation Booking

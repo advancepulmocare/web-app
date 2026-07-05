@@ -5,6 +5,7 @@ Refine the existing single-page site with 6 targeted upgrades. All work stays in
 ## 1. Highlight the personal clinic — "Advance Pulmo Care"
 
 Verified from the shared Google listing:
+
 - Name: **ADVANCE PULMO CARE — Dr. Rakesh Godara, Chest Physician & Interventional Pulmonologist**
 - Address: Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura, Jaipur, Rajasthan 302022
 - Phone: +91 99286 83032
@@ -12,6 +13,7 @@ Verified from the shared Google listing:
 - Rating: **4.9 ★ (323 Google reviews)**
 
 Changes:
+
 - Add a dedicated "Advance Pulmo Care" section (after Services, before Patient Stories) with clinic name, tagline, address, hours grid, phone CTA, 4.9★/323 review badge, and an embedded Google Map for the Jagatpura address.
 - Add a second "Clinic Locations" treatment where both **Advance Pulmo Care (own clinic)** and **CK Birla Hospitals | RBH** are shown side-by-side as cards, with Advance Pulmo Care marked as the primary/personal clinic.
 - Update hero sub-line and header to mention "Founder — Advance Pulmo Care · Sr. Consultant, CK Birla Hospitals (RBH)".
@@ -31,6 +33,7 @@ Rebuild to match the reference: a left-aligned vertical timeline with dot + conn
 ## 4. Real Google review data
 
 Replace the current Practo-sourced testimonials with:
+
 - A trust strip: **4.9 ★ · 323 Google Reviews · Advance Pulmo Care** (linked to the Google listing).
 - 5–6 real, verbatim patient reviews pulled from the Google listing and Practo profile, each with reviewer name, source badge ("Google" / "Practo"), star rating, and short quote. Include an "All reviews verified from Google & Practo" disclaimer.
 - Update the hero stat counter from the old figure to **323+ verified reviews · 4.9★**.
@@ -38,6 +41,7 @@ Replace the current Practo-sourced testimonials with:
 ## 5. Footer redesign (matches image 3)
 
 Rebuild footer as a 3-column grid on desktop, stacked on mobile:
+
 - Col 1: Stethoscope monogram + "Dr. Rakesh Godara" wordmark, short bio ("Sr. Consultant Pulmonologist & Additional Director at CK Birla Hospitals — RBH, Jaipur. Founder, Advance Pulmo Care. Providing advanced interventional respiratory care with compassion."), and three circular social icons (LinkedIn, Instagram, Facebook — Facebook links to the verified `drgodarainterventionalpulmonology` page).
 - Col 2: "Quick Links" — About the Doctor, Services, Patient Stories, Clinic & Contact, RBH Profile ↗ (external).
 - Col 3: "Clinic Hours" — Mon–Sat 5–8 PM, Sun 6–8 PM, plus a soft-blue "Emergency 24×7" card with the number **07340054470**.

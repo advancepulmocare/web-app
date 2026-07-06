@@ -28,12 +28,16 @@ import {
   Facebook,
   ExternalLink,
 } from "lucide-react";
-import doctorPortrait from "@/assets/doctor-portrait.jpg";
+import doctorPortrait from "@/assets/doctor-portrait.png";
 import clinicInterior from "@/assets/clinic-interior.jpg";
-import consultation from "@/assets/consultation.jpg";
+import consultation from "@/assets/consultation.png";
 import equipment from "@/assets/equipment.jpg";
-import reception from "@/assets/reception.jpg";
+import reception from "@/assets/reception.webp";
+import waitingArea from "@/assets/waiting-area.webp";
 import heroBg from "@/assets/hero-bg.jpg";
+import gettingReady from "@/assets/getting-ready.mp4";
+import drAchievements from "@/assets/dr-achievements.webp";
+import clinicBanner from "@/assets/clinic-banner.webp";
 import {
   Dialog,
   DialogContent,
@@ -148,10 +152,10 @@ function Header() {
           </div>
           <div className="leading-tight">
             <div className="font-display text-[1.05rem] font-semibold text-foreground">
-              Dr. Rakesh Godara
+              Advance Pulmo Care{" "}
             </div>
             <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Advance Pulmo Care · Jaipur
+              Dr. Rakesh Godara
             </div>
           </div>
         </a>
@@ -236,7 +240,7 @@ function Hero() {
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/70 px-4 py-1.5 text-xs font-medium text-primary shadow-soft backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" />
-            Founder — Advance Pulmo Care · Sr. Consultant, CK Birla Hospitals (RBH)
+            Senior Consultant · CK Birla Hospitals | RBH, Jaipur{" "}
           </div>
 
           <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
@@ -422,6 +426,7 @@ function StatCard({
 
 /* ---------------- About ---------------- */
 const EDUCATION = [
+  { title: "MBBS", sub: "SPMC & PBM Hospitals, Bikaner · 2004" },
   { title: "MD — Respiratory Medicine", sub: "SPMC & PBM Hospitals, Bikaner · 2009" },
   {
     title: "IDCCM — Indian Diploma of Critical Care Medicine",
@@ -435,7 +440,6 @@ const EDUCATION = [
     title: "EDRM — European Diploma of Respiratory Medicine",
     sub: "European Respiratory Society, Netherlands · 2015",
   },
-  { title: "MBBS", sub: "SPMC & PBM Hospitals, Bikaner · 2004" },
 ];
 
 const PREVIOUS = [
@@ -491,10 +495,10 @@ function About() {
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
               EDUCATION &amp; FELLOWSHIPS
             </div>
-            <ol className="relative mt-6 space-y-6 border-l border-slate-100 pl-6">
+            <ol className="relative mt-6 space-y-6 border-l border-slate-200 pl-6">
               {EDUCATION.map((e) => (
                 <li key={e.title} className="relative">
-                  <span className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-100 bg-white" />
+                  <span className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-300 bg-white" />
                   <div className="text-base font-bold text-[#0a2540]">{e.title}</div>
                   <div className="mt-1 text-sm text-[#4a5568]">{e.sub}</div>
                 </li>
@@ -949,7 +953,7 @@ function Testimonials() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <SectionEyebrow>Patient Reviews</SectionEyebrow>
+            <SectionEyebrow>Real words from real patients.</SectionEyebrow>
             <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
               <span className="gradient-text">4.9 ★ on Google</span> — trusted across Rajasthan.
             </h2>
@@ -1013,36 +1017,91 @@ function Testimonials() {
 function Gallery() {
   const items = [
     {
-      src: clinicInterior,
-      alt: "Clinic corridor",
-      cls: "sm:col-span-2 sm:row-span-2 aspect-[16/10] sm:aspect-auto",
+      src: gettingReady,
+      type: "video",
+      alt: "Getting ready for the Surgery",
+      cls: "lg:col-span-2 lg:row-span-3",
     },
-    { src: reception, alt: "Reception & waiting area", cls: "aspect-square" },
-    { src: equipment, alt: "Advanced pulmonology equipment", cls: "aspect-square" },
-    { src: consultation, alt: "Consultation in progress", cls: "sm:col-span-2 aspect-[16/9]" },
+    {
+      src: clinicBanner,
+      alt: "Clinic Banner",
+      cls: "",
+    },
+    {
+      src: drAchievements,
+      alt: "Dr. Godara's Achievements",
+      cls: "",
+    },
+    {
+      src: consultation,
+      alt: "Consultation in progress",
+      cls: "lg:col-span-2",
+    },
+    {
+      src: reception,
+      alt: "Reception",
+      cls: "",
+    },
+    {
+      src: waitingArea,
+      alt: "Waiting Area",
+      cls: "",
+    },
   ];
+
   return (
     <section className="relative gradient-soft py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Inside the Clinic</SectionEyebrow>
+
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            A calm environment, <span className="gradient-text">designed for healing.</span>
+            Modern facility. <span className="gradient-text">Easy to reach.</span>
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div
+          className="
+            mt-12
+            grid
+            grid-cols-2
+            gap-3
+            lg:grid-cols-4
+            lg:auto-rows-[300px]
+          "
+        >
           {items.map((it, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden rounded-2xl border border-border shadow-soft ${it.cls}`}
+              className={`
+                group
+                relative
+                overflow-hidden
+                rounded-2xl
+                border
+                border-border
+                shadow-soft
+                ${it.cls}
+              `}
             >
-              <img
-                src={it.src}
-                alt={it.alt}
-                loading="lazy"
-                className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-              />
+              {it.type === "video" ? (
+                <video
+                  src={it.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                />
+              ) : (
+                <img
+                  src={it.src}
+                  alt={it.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                />
+              )}
+
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/70 to-transparent p-4 opacity-0 transition group-hover:opacity-100">
                 <div className="text-xs font-medium text-primary-foreground">{it.alt}</div>
               </div>

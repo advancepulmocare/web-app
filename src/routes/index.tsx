@@ -750,11 +750,13 @@ function ClinicSection() {
 
           <div className="overflow-hidden rounded-[2rem] border border-border shadow-elevated">
             <iframe
-              title="Advance Pulmo Care — Jagatpura, Jaipur"
-              src="https://www.google.com/maps?q=Advance+Pulmo+Care+Ashadeep+Kingscourt+Jagatpura+Jaipur&output=embed"
-              className="h-full min-h-[420px] w-full"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4567.943824605615!2d75.87164159999999!3d26.7888605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db7735fd1bd7d%3A0xde3eb4620eae1e05!2sADVANCE%20PULMO%20CARE%2C%20Dr.%20Rakesh%20Godara%2C%20Chest%20physician%2C%20Interventional%20Pulmonologist!5e1!3m2!1sen!2sin!4v1783372310890!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: "0" }}
+              allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
         </div>

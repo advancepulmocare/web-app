@@ -57,8 +57,7 @@ const NAV = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Clinic", href: "#clinic" },
-  { label: "Reviews", href: "#testimonials" },
-  { label: "Book", href: "#book" },
+  { label: "Reviews", href: "#testimonials" }
 ];
 
 const APC_PHONE_DISPLAY = "+91 99286 83032";
@@ -174,7 +173,7 @@ function Header() {
 
         <div className="hidden lg:block">
           <button
-            onClick={booking.open}
+            onClick={() => (window.location.href = "#book")}
             className="inline-flex items-center gap-2 rounded-full gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition hover:shadow-elevated hover:-translate-y-0.5"
           >
             <Calendar className="h-4 w-4" /> Book Appointment
@@ -204,10 +203,7 @@ function Header() {
               </a>
             ))}
             <button
-              onClick={() => {
-                setOpen(false);
-                booking.open();
-              }}
+              onClick={() => (window.location.href = "#book")}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-full gradient-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
             >
               <Calendar className="h-4 w-4" /> Book Appointment
@@ -261,7 +257,7 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
-              onClick={booking.open}
+              onClick={() => (window.location.href = "#book")}
               className="group inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5"
             >
               <Calendar className="h-4 w-4" />
@@ -733,7 +729,7 @@ function ClinicSection() {
 
               <div className="mt-7 flex flex-wrap gap-3">
                 <button
-                  onClick={booking.open}
+                  onClick={() => (window.location.href = "#book")}
                   className="inline-flex items-center gap-2 rounded-full gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow"
                 >
                   <Calendar className="h-4 w-4" /> Book at Advance Pulmo Care

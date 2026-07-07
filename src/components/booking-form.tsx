@@ -33,7 +33,7 @@ const WEEKDAY_SLOTS = [
 ];
 const SUNDAY_SLOTS: string[] = [];
 
-const WA_NUMBER = "919928683032";
+const WA_NUMBER = "917030067700";
 
 const schema = z.object({
   concern: z.string().min(1, "Please select a medical concern"),

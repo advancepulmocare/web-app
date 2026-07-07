@@ -62,9 +62,9 @@ const NAV = [
 ];
 
 const APC_PHONE_DISPLAY = "+91 99286 83032";
-const APC_PHONE_TEL = "+919928683032";
+const APC_PHONE_TEL = "+917030067700";
 const EMERGENCY_DISPLAY = "07340054470";
-const WHATSAPP = `https://api.whatsapp.com/send/?phone=919928683032&text=${encodeURIComponent(
+const WHATSAPP = `https://api.whatsapp.com/send/?phone=917030067700&text=${encodeURIComponent(
   "Hi, I'd like to book a consultation at Advance Pulmo Care with Dr. Rakesh Godara.",
 )}&type=phone_number`;
 const RBH_PROFILE = "https://ckbirlahospitals.com/rbh/doctor/dr-rakesh-godara";

@@ -21,19 +21,16 @@ const CONCERNS = [
   "General Chest / Lung Consultation",
 ];
 
-// Clinic hours: Mon–Sat 11 AM – 3 PM
+// Clinic hours: Mon–Sat 6:00 PM – 8:00 PM (30-min slots)
 const WEEKDAY_SLOTS = [
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "01:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
+  "6:00 PM - 6:30 PM",
+  "6:30 PM - 7:00 PM",
+  "7:00 PM - 7:30 PM",
+  "7:30 PM - 8:00 PM",
 ];
 const SUNDAY_SLOTS: string[] = [];
 
-const WA_NUMBER = "917030067700";
+const WA_NUMBER = "919928683032";
 
 const schema = z.object({
   concern: z.string().min(1, "Please select a medical concern"),
@@ -272,10 +269,10 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
               3. Pick Time Slot <span className="text-destructive">*</span>
               <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-muted-foreground">
                 <Clock className="h-3 w-3" />
-                Mon–Sat 11:00 AM – 3:00 PM
+                Mon–Sat 6:00 PM – 8:00 PM
               </span>
             </legend>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {slots.map((s) => {
                 const active = slot === s;
                 return (

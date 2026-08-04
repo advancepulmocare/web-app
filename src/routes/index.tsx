@@ -57,16 +57,17 @@ const NAV = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Clinic", href: "#clinic" },
-  { label: "Reviews", href: "#testimonials" }
+  { label: "Reviews", href: "#testimonials" },
 ];
 
 const APC_PHONE_DISPLAY = "+91 99286 83032";
-const APC_PHONE_TEL = "+917030067700";
-const EMERGENCY_DISPLAY = "07340054470";
-const WHATSAPP = `https://api.whatsapp.com/send/?phone=917030067700&text=${encodeURIComponent(
+const APC_PHONE_TEL = "+919928683032";
+const EMERGENCY_DISPLAY = "+91 9928683032";
+const WHATSAPP = `https://api.whatsapp.com/send/?phone=919928683032&text=${encodeURIComponent(
   "Hi, I'd like to book a consultation at Advance Pulmo Care with Dr. Rakesh Godara.",
 )}&type=phone_number`;
 const RBH_PROFILE = "https://ckbirlahospitals.com/rbh/doctor/dr-rakesh-godara";
+const RBH_MAPS = "https://maps.app.goo.gl/7Dz3X2CESoLLxyL58";
 const GOOGLE_LISTING = "https://share.google/oag7YIhuu1Pz3YgcH";
 
 /* ---------------- Booking Context ---------------- */
@@ -613,13 +614,13 @@ function Services() {
 
 /* ---------------- Clinic Section (Advance Pulmo Care) ---------------- */
 const APC_HOURS = [
-  ["Monday", "5:00 – 8:00 PM"],
-  ["Tuesday", "5:00 – 8:00 PM"],
-  ["Wednesday", "5:00 – 8:00 PM"],
-  ["Thursday", "5:00 – 8:00 PM"],
-  ["Friday", "5:00 – 8:00 PM"],
-  ["Saturday", "5:00 – 8:00 PM"],
-  ["Sunday", "6:00 – 8:00 PM"],
+  ["Monday", "6:00 – 8:00 PM"],
+  ["Tuesday", "6:00 – 8:00 PM"],
+  ["Wednesday", "6:00 – 8:00 PM"],
+  ["Thursday", "6:00 – 8:00 PM"],
+  ["Friday", "6:00 – 8:00 PM"],
+  ["Saturday", "6:00 – 8:00 PM"],
+  ["Sunday", "Emergency Only"],
 ];
 
 function ClinicSection() {
@@ -776,13 +777,41 @@ function ClinicSection() {
                 </div>
               </div>
             </div>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={RBH_MAPS}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-primary hover:border-primary/30"
+              >
+                <MapPin className="h-3.5 w-3.5" /> Open in Map
+              </a>
+              <a
+                href={RBH_PROFILE}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-primary hover:border-primary/30"
+              >
+                View RBH Profile <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-5">
+            <div className="flex items-center gap-4">
+              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                <Clock className="h-4 w-4" />
+              </div>
+              <div className="text-sm text-foreground">
+                <div className="font-semibold">Consulting Hours</div>
+                <div className="text-muted-foreground">Monday – Saturday · 10:00 AM – 4:00 PM</div>
+              </div>
+            </div>
             <a
-              href={RBH_PROFILE}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-primary hover:border-primary/30"
+              href={`tel:${APC_PHONE_TEL}`}
+              className="inline-flex items-center gap-2 rounded-full gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              View RBH Profile <ExternalLink className="h-3.5 w-3.5" />
+              <Phone className="h-4 w-4" /> Call to Book
             </a>
           </div>
         </div>
@@ -1119,7 +1148,7 @@ const FAQS = [
   },
   {
     q: "What are the clinic timings at Advance Pulmo Care?",
-    a: "Monday to Saturday, 5:00 PM to 8:00 PM. Sunday, 6:00 PM to 8:00 PM.",
+    a: "Monday to Saturday, 6:00 PM to 8:00 PM (30-minute slots). Sunday is for emergencies only.",
   },
   {
     q: "Where is Advance Pulmo Care located?",
@@ -1333,7 +1362,7 @@ function Footer() {
           <div className="mt-5 space-y-3 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Mon – Sat</span>
-              <span className="font-bold text-[#0a1e36]">11:00 AM – 3:00 PM</span>
+              <span className="font-bold text-[#0a1e36]">6:00 PM – 8:00 PM</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Sunday</span>

@@ -476,7 +476,9 @@ function About() {
         <div className="order-1 lg:order-2">
           <SectionEyebrow>About the Doctor</SectionEyebrow>
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            Two decades of caring for <span className="gradient-text">every breath.</span>
+            Two decades o<span className="font-[Georgia,serif]">f</span> caring{" "}
+            <span className="font-[Georgia,serif]">f</span>or{" "}
+            <span className="gradient-text">every breath.</span>
           </h2>
           <p className="mt-5 text-[0.98rem] leading-relaxed text-muted-foreground">
             Dr. Rakesh Godara is the founder of{" "}
@@ -631,7 +633,9 @@ function ClinicSection() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow center>Personal Clinic</SectionEyebrow>
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            <span className="gradient-text">Advance Pulmo Care</span> — Jagatpura, Jaipur.
+            <span className="gradient-text">Advance Pulmo Care</span> —{" "}
+            <span className="font-[Georgia,serif]">J</span>agatpura,{" "}
+            <span className="font-[Georgia,serif]">J</span>aipur.
           </h2>
           <p className="mt-4 text-muted-foreground">
             Dr. Godara's own chest & interventional pulmonology clinic — a calm, focused OPD for

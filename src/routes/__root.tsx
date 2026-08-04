@@ -117,12 +117,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:image",
         content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/60f40ef0-52ed-44e2-aead-a67ba64a414c/id-preview-15f60f5d--93893c56-8b22-4cde-abfc-d0547cce6b37.lovable.app-1783194963499.png",
+          "https://garaaz-store.s3.ap-south-1.amazonaws.com/5ef2c74227034f37b8903a388352bcbb.png",
       },
       {
         name: "twitter:image",
         content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/60f40ef0-52ed-44e2-aead-a67ba64a414c/id-preview-15f60f5d--93893c56-8b22-4cde-abfc-d0547cce6b37.lovable.app-1783194963499.png",
+          "https://garaaz-store.s3.ap-south-1.amazonaws.com/5ef2c74227034f37b8903a388352bcbb.png",
       },
     ],
     links: [

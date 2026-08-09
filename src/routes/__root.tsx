@@ -11,6 +11,12 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import {
+  DOCTOR_DESIGNATION,
+  DOCTOR_EXPERIENCE,
+  DOCTOR_NAME,
+  QUALIFICATIONS_SEO,
+} from "../lib/site-content";
 
 function NotFoundComponent() {
   return (
@@ -77,42 +83,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dr. Rakesh Godara — Senior Pulmonologist & Critical Care Specialist, Jaipur" },
+      { title: `${DOCTOR_NAME} — Pulmonology, Critical Care & Sleep Medicine, Jaipur` },
       {
         name: "description",
-        content:
-          "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur.",
+        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
-      { name: "author", content: "Dr. Rakesh Godara" },
+      { name: "author", content: DOCTOR_NAME },
       {
         property: "og:title",
-        content: "Dr. Rakesh Godara — Senior Pulmonologist & Critical Care Specialist, Jaipur",
+        content: `${DOCTOR_NAME} — Pulmonology, Critical Care & Sleep Medicine, Jaipur`,
       },
       {
         property: "og:description",
-        content:
-          "Compassionate care. Accurate diagnosis. Better health. Book a consultation with one of Jaipur's leading pulmonologists.",
+        content: `${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Dr. Rakesh Godara — Senior Pulmonologist & Critical Care Specialist, Jaipur",
+        content: `${DOCTOR_NAME} — Pulmonology, Critical Care & Sleep Medicine, Jaipur`,
       },
       {
         name: "description",
-        content:
-          "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur.",
+        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       {
         property: "og:description",
-        content:
-          "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur.",
+        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       {
         name: "twitter:description",
-        content:
-          "Dr. Rakesh Godara — MD Respiratory Medicine, FNB Critical Care, EDRM (Europe). 17+ years of expertise in Interventional Pulmonology, Bronchoscopy & Critical Care at CK Birla Hospitals | RBH, Jaipur.",
+        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       {
         property: "og:image",

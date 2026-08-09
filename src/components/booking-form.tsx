@@ -13,12 +13,13 @@ import {
 } from "lucide-react";
 
 const CONCERNS = [
-  "Asthma or Wheezing Care",
-  "Sleep Apnea & Snoring Study",
-  "Chronic Cough & Allergy",
-  "COPD & Breathlessness Recovery",
-  "Interventional Biopsy / EBUS Consultation",
-  "General Chest / Lung Consultation",
+  "General chest / lung consultation",
+  "Asthma, COPD or breathlessness review",
+  "Sleep apnoea and sleep medicine consultation",
+  "Chronic cough, allergy or bronchiectasis review",
+  "Severe asthma / biologic therapy review",
+  "Interventional pulmonology / EBUS opinion",
+  "Pulmonary rehabilitation or post-ICU follow-up",
 ];
 
 // Clinic hours: Mon–Sat 6:00 PM – 8:00 PM (30-min slots)
@@ -37,6 +38,11 @@ const schema = z.object({
   date: z.string().min(1, "Please choose a date"),
   slot: z.string().min(1, "Please pick a time slot"),
   name: z.string().trim().min(2, "Full name is required").max(80, "Name is too long"),
+  age: z.coerce
+    .number({ invalid_type_error: "Age is required" })
+    .int("Enter a whole number")
+    .min(0, "Enter a valid age")
+    .max(120, "Enter a valid age"),
   mobile: z
     .string()
     .trim()
@@ -98,6 +104,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
       date: defaultDate,
       slot: "",
       name: "",
+      age: undefined,
       mobile: "",
       symptoms: "",
     },
@@ -115,6 +122,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
     const msg =
       `Hello Dr. Godara's team,%0A%0AI'd like to book an OPD consultation at *Advance Pulmo Care*.%0A%0A` +
       `*Name:* ${encodeURIComponent(v.name)}%0A` +
+      `*Age:* ${encodeURIComponent(String(v.age))}%0A` +
       `*Mobile:* ${encodeURIComponent(v.mobile)}%0A` +
       `*Concern:* ${encodeURIComponent(v.concern)}%0A` +
       `*Preferred Date:* ${encodeURIComponent(day.long)}%0A` +
@@ -127,7 +135,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
       description: "We'll confirm your slot on WhatsApp shortly.",
     });
     window.open(url, "_blank", "noopener");
-    reset({ ...v, name: "", mobile: "", symptoms: "", slot: "" });
+    reset({ ...v, name: "", age: undefined, mobile: "", symptoms: "", slot: "" });
     onDone?.();
   };
 
@@ -296,7 +304,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
             )}
           </fieldset>
 
-          {/* 4. Full Name + Mobile Number */}
+          {/* 4. Full Name + Age + Mobile Number */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
@@ -315,6 +323,21 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
               )}
             </div>
             <div>
+              <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
+                Age <span className="text-destructive">*</span>
+              </label>
+              <input
+                {...register("age")}
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={120}
+                placeholder="e.g. 42"
+                className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-foreground outline-none focus:border-primary"
+              />
+              {errors.age && <p className="mt-1 text-xs text-destructive">{errors.age.message}</p>}
+            </div>
+            <div className="sm:col-span-2">
               <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground">
                 Mobile Number <span className="text-destructive">*</span>
               </label>
@@ -360,7 +383,9 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
           </button>
 
           <p className="text-center text-[11px] text-muted-foreground">
-            🔒 SSL Encrypted &amp; HIPAA-Compliant Healthcare Practice Demonstration.
+            🔒 Your information is encrypted and will be used only for appointment coordination. <br />
+            Please avoid submitting emergency or highly sensitive medical information through this
+            form.
           </p>
         </>
       )}

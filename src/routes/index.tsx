@@ -249,8 +249,8 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Meet <strong className="text-foreground">Dr. Rakesh Godara</strong> — MD (Respiratory
-            Medicine), FNB Critical Care, EDRM (Europe). Founder of{" "}
+            Meet <strong className="text-foreground">Dr. Rakesh Godara</strong> — MD (Pulmonary
+            Medicine), FNB Critical Care, EDARM (Europe). Founder of{" "}
             <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura, and Sr.
             Consultant Pulmonologist at CK Birla Hospitals | RBH, Jaipur, with 17+ years in
             interventional pulmonology and critical care.
@@ -310,7 +310,7 @@ function Hero() {
                 Dr. Rakesh Godara
               </div>
               <div className="text-xs text-muted-foreground">
-                MD · FNB (Critical Care) · EDRM (Europe)
+                MD · FNB (Critical Care) · EDARM (Europe)
               </div>
             </div>
           </div>
@@ -423,19 +423,51 @@ function StatCard({
 
 /* ---------------- About ---------------- */
 const EDUCATION = [
-  { title: "MBBS", sub: "SPMC & PBM Hospitals, Bikaner · 2004" },
-  { title: "MD — Respiratory Medicine", sub: "SPMC & PBM Hospitals, Bikaner · 2009" },
   {
-    title: "IDCCM — Indian Diploma of Critical Care Medicine",
-    sub: "Sir Ganga Ram Hospital, Delhi · 2011",
+    title: "MD — Pulmonary Medicine",
+    sub: "PBM Group of Hospitals, Bikaner · June 2006 – June 2009",
+  },
+  {
+    title: "IDCCM — Critical Care Medicine",
+    sub: "Sir Ganga Ram Hospital, New Delhi · January 2010 – March 2011",
   },
   {
     title: "FNB — Critical Care Medicine",
-    sub: "Fortis Escorts Heart Institute, Okhla, Delhi · 2013",
+    sub: "Fortis Escorts Heart Institute, Okhla, New Delhi · March 2011 – July 2013",
   },
   {
-    title: "EDRM — European Diploma of Respiratory Medicine",
-    sub: "European Respiratory Society, Netherlands · 2015",
+    title: "EDARM — European Diploma of Adult Respiratory Medicine",
+    sub: "European Respiratory Society (ERS), Netherlands · September 2015",
+  },
+  {
+    title: "Advanced Interventional Pulmonology & Critical Care Training",
+    sub: "December 2013 – March 2016",
+  },
+  {
+    title: "Observership in Interventional Pulmonology",
+    sub: "Cleveland Clinic, Cleveland, Ohio, USA · April 2016",
+  },
+];
+
+const CERTIFICATIONS = [
+  { title: "Advanced Trauma Life Support (ATLS)", year: "2012" },
+  { title: "International Trauma Life Support (ITLS)", year: "2012" },
+  { title: "Advanced Cardiac Life Support (ACLS)", year: "2011" },
+  { title: "Winfocus Emergency Ultrasound Course", year: "2011" },
+];
+
+const AWARDS = [
+  {
+    title: "Dr. Kalicharan Mathur Best Paper Award",
+    sub: "Gold medal · 8th NCCP RajPulmocon · 2008",
+  },
+  {
+    title: "Sepsis Quiz — 2nd Position",
+    sub: "Sepsis Conference, New Delhi · 2011",
+  },
+  {
+    title: "Interesting Cases in EBUS — First Prize",
+    sub: "EUS/EBUS Conference, Noida · 2016",
   },
 ];
 
@@ -492,7 +524,7 @@ function About() {
           {/* Education timeline */}
           <div className="mt-10">
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              EDUCATION &amp; FELLOWSHIPS
+              EDUCATION &amp; TRAINING
             </div>
             <ol className="relative mt-6 space-y-6 border-l border-slate-200 pl-6">
               {EDUCATION.map((e) => (
@@ -504,6 +536,44 @@ function About() {
               ))}
             </ol>
           </div>
+
+          {/* Awards */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              AWARDS
+            </div>
+            <ul className="mt-5 space-y-4">
+              {AWARDS.map((a) => (
+                <li key={a.title} className="flex items-start gap-3">
+                  <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="text-base font-bold text-[#0a2540]">{a.title}</div>
+                    <div className="mt-0.5 text-sm text-[#4a5568]">{a.sub}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Certifications */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              CERTIFICATIONS
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {CERTIFICATIONS.map((c) => (
+                <span
+                  key={c.title}
+                  className="rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-semibold text-[#4a5568] shadow-sm"
+                >
+                  {c.title} · {c.year}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Previously associated */}
           <div className="mt-12">
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">

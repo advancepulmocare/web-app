@@ -12,6 +12,8 @@ import {
   MessageCircle,
 } from "lucide-react";
 
+export const OTHER_CONCERN = "Other (please specify)";
+
 const CONCERNS = [
   "General chest / lung consultation",
   "Asthma, COPD or breathlessness review",
@@ -20,6 +22,7 @@ const CONCERNS = [
   "Severe asthma / biologic therapy review",
   "Interventional pulmonology / EBUS opinion",
   "Pulmonary rehabilitation or post-ICU follow-up",
+  OTHER_CONCERN,
 ];
 
 // Clinic hours: Mon–Sat 6:00 PM – 8:00 PM (30-min slots)
@@ -33,22 +36,33 @@ const SUNDAY_SLOTS: string[] = [];
 
 const WA_NUMBER = "919928683032";
 
-const schema = z.object({
-  concern: z.string().min(1, "Please select a medical concern"),
-  date: z.string().min(1, "Please choose a date"),
-  slot: z.string().min(1, "Please pick a time slot"),
-  name: z.string().trim().min(2, "Full name is required").max(80, "Name is too long"),
-  age: z.coerce
-    .number({ invalid_type_error: "Age is required" })
-    .int("Enter a whole number")
-    .min(0, "Enter a valid age")
-    .max(120, "Enter a valid age"),
-  mobile: z
-    .string()
-    .trim()
-    .regex(/^(?:\+?91[-\s]?)?[6-9]\d{9}$/, "Enter a valid Indian mobile number"),
-  symptoms: z.string().trim().max(500, "Please keep under 500 characters").optional(),
-});
+const schema = z
+  .object({
+    concern: z.string().min(1, "Please select a medical concern"),
+    concernOther: z.string().trim().max(120, "Please keep under 120 characters").optional(),
+    date: z.string().min(1, "Please choose a date"),
+    slot: z.string().min(1, "Please pick a time slot"),
+    name: z.string().trim().min(2, "Full name is required").max(80, "Name is too long"),
+    age: z.coerce
+      .number({ invalid_type_error: "Age is required" })
+      .int("Enter a whole number")
+      .min(0, "Enter a valid age")
+      .max(120, "Enter a valid age"),
+    mobile: z
+      .string()
+      .trim()
+      .regex(/^(?:\+?91[-\s]?)?[6-9]\d{9}$/, "Enter a valid Indian mobile number"),
+    symptoms: z.string().trim().max(500, "Please keep under 500 characters").optional(),
+  })
+  .superRefine((values, ctx) => {
+    if (values.concern === OTHER_CONCERN && (values.concernOther ?? "").length < 3) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["concernOther"],
+        message: "Please describe your medical condition",
+      });
+    }
+  });
 
 export type BookingValues = z.infer<typeof schema>;
 
@@ -101,6 +115,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
     resolver: zodResolver(schema),
     defaultValues: {
       concern: "",
+      concernOther: "",
       date: defaultDate,
       slot: "",
       name: "",
@@ -111,6 +126,7 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
   });
 
   const concern = watch("concern");
+  const isOtherConcern = concern === OTHER_CONCERN;
   const dateVal = watch("date");
   const slot = watch("slot");
 
@@ -119,12 +135,14 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
 
   const onSubmit = (v: BookingValues) => {
     const day = fmtDay(currentDay);
+    const concernText =
+      v.concern === OTHER_CONCERN ? `Other - ${v.concernOther?.trim()}` : v.concern;
     const msg =
       `Hello Dr. Godara's team,%0A%0AI'd like to book an OPD consultation at *Advance Pulmo Care*.%0A%0A` +
       `*Name:* ${encodeURIComponent(v.name)}%0A` +
       `*Age:* ${encodeURIComponent(String(v.age))}%0A` +
       `*Mobile:* ${encodeURIComponent(v.mobile)}%0A` +
-      `*Concern:* ${encodeURIComponent(v.concern)}%0A` +
+      `*Concern:* ${encodeURIComponent(concernText)}%0A` +
       `*Preferred Date:* ${encodeURIComponent(day.long)}%0A` +
       `*Preferred Slot:* ${encodeURIComponent(v.slot)}%0A` +
       (v.symptoms ? `*Notes:* ${encodeURIComponent(v.symptoms)}%0A` : "") +
@@ -135,7 +153,15 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
       description: "We'll confirm your slot on WhatsApp shortly.",
     });
     window.open(url, "_blank", "noopener");
-    reset({ ...v, name: "", age: undefined, mobile: "", symptoms: "", slot: "" });
+    reset({
+      ...v,
+      name: "",
+      age: undefined,
+      mobile: "",
+      symptoms: "",
+      slot: "",
+      concernOther: "",
+    });
     onDone?.();
   };
 
@@ -202,7 +228,12 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
                   <button
                     key={c}
                     type="button"
-                    onClick={() => setValue("concern", c, { shouldValidate: true })}
+                    onClick={() => {
+                      setValue("concern", c, { shouldValidate: true });
+                      if (c !== OTHER_CONCERN) {
+                        setValue("concernOther", "", { shouldValidate: false });
+                      }
+                    }}
                     className={`rounded-xl border px-3 py-2.5 text-left text-sm transition ${
                       active
                         ? "border-[#0066cc] bg-blue-50/40 text-[#004b93] font-semibold shadow-sm"
@@ -216,6 +247,27 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
             </div>
             {errors.concern && (
               <p className="mt-1.5 text-xs text-destructive">{errors.concern.message}</p>
+            )}
+
+            {isOtherConcern && (
+              <div className="mt-3 rounded-xl border border-[#0066cc]/30 bg-blue-50/30 p-3">
+                <label
+                  htmlFor="concernOther"
+                  className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground"
+                >
+                  Please specify your medical condition <span className="text-destructive">*</span>
+                </label>
+                <input
+                  id="concernOther"
+                  {...register("concernOther")}
+                  autoFocus
+                  placeholder="e.g. Recurrent chest infection after tuberculosis treatment"
+                  className="w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-foreground outline-none focus:border-primary"
+                />
+                {errors.concernOther && (
+                  <p className="mt-1 text-xs text-destructive">{errors.concernOther.message}</p>
+                )}
+              </div>
             )}
           </fieldset>
 
@@ -383,7 +435,8 @@ export function BookingForm({ onDone }: { onDone?: () => void }) {
           </button>
 
           <p className="text-center text-[11px] text-muted-foreground">
-            🔒 Your information is encrypted and will be used only for appointment coordination. <br />
+            🔒 Your information is encrypted and will be used only for appointment coordination.{" "}
+            <br />
             Please avoid submitting emergency or highly sensitive medical information through this
             form.
           </p>

@@ -22,7 +22,7 @@ export const APC_REGISTRATION = "RMC023258";
 export const APC_REGISTRATION_LABEL = "Rajasthan Medical Council, 15-03-2005";
 
 export const APC_ADDRESS =
-  "Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura, Jaipur, Rajasthan 302022";
+  "C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura, Jaipur, Rajasthan 302022";
 
 export const RBH_PROFILE = "https://ckbirlahospitals.com/rbh/doctor/dr-rakesh-godara";
 export const RBH_MAPS = "https://maps.app.goo.gl/7Dz3X2CESoLLxyL58";

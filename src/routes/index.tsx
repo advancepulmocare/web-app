@@ -38,6 +38,15 @@ import heroBg from "@/assets/hero-bg.jpg";
 import gettingReady from "@/assets/getting-ready.mp4";
 import drAchievements from "@/assets/dr-achievements.webp";
 import clinicBanner from "@/assets/clinic-banner.webp";
+import logoTransparent from "@/assets/logo_transparent.png";
+import svcAsthmaCopd from "@/assets/services/service-asthma-copd.jpg";
+import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
+import svcEbus from "@/assets/services/service-ebus.jpg";
+import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
+import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
+import svcLungInfection from "@/assets/services/service-lung-infection.jpg";
+import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
+import svcIld from "@/assets/services/service-ild.jpg";
 import {
   Dialog,
   DialogContent,
@@ -47,6 +56,8 @@ import {
 } from "@/components/ui/dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { BookingForm } from "@/components/booking-form";
+import { ProfessionalJourney } from "@/components/professional-journey";
+import { SectionEyebrow } from "@/components/section-eyebrow";
 import {
   APC_PHONE_DISPLAY,
   APC_PHONE_TEL,
@@ -70,6 +81,7 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Journey", href: "#professional-journey" },
   { label: "Services", href: "#services" },
   { label: "Clinic", href: "#clinic" },
   { label: "Reviews", href: "#testimonials" },
@@ -120,7 +132,7 @@ function Index() {
     telephone: APC_PHONE_DISPLAY,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Ashadeep Kingscourt, S2-S3, near Jeerota, Jagatpura",
+      streetAddress: "C3-C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura",
       addressLocality: "Jaipur",
       addressRegion: "Rajasthan",
       postalCode: "302022",
@@ -140,6 +152,7 @@ function Index() {
         <Hero />
         <TrustStats />
         <About />
+        <ProfessionalJourney />
         <Services />
         <ClinicSection />
         <WhyChoose />
@@ -178,9 +191,7 @@ function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="#home" className="flex items-center gap-3">
-          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl gradient-primary text-primary-foreground shadow-soft">
-            <Stethoscope className="h-5 w-5" strokeWidth={2.2} />
-          </div>
+          <img src={logoTransparent} alt="" width={50} height={50} className=" object-contain" />
           <div className="leading-tight">
             <div className="font-display text-[1.05rem] font-semibold text-foreground">
               Advance Pulmo Care{" "}
@@ -191,7 +202,7 @@ function Header() {
           </div>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
           {NAV.map((n) => (
             <a
               key={n.href}
@@ -266,8 +277,15 @@ function Hero() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 pb-16 sm:px-8 sm:pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-32">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/70 px-4 py-1.5 text-xs font-medium text-primary shadow-soft backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5" />
-            {DOCTOR_DESIGNATION}
+            <Sparkles className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-left leading-snug">
+              {DOCTOR_DESIGNATION.split(" | ").map((part, i, parts) => (
+                <span key={part}>
+                  {part}
+                  {i < parts.length - 1 && <br />}
+                </span>
+              ))}
+            </span>
           </div>
 
           <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[4.2rem]">
@@ -391,9 +409,9 @@ function useCountUp(target: number, active: boolean, duration = 1400) {
 
 const STATS = [
   { value: 20, suffix: "+", label: "Years of Experience" },
-  { value: 323, suffix: "+", label: "Verified Google Reviews" },
-  { value: 49, suffix: "★", label: "4.9 Average Rating", divide: 10 },
-  { value: 6, suffix: "", label: "Core Service Areas" },
+  { value: 700, suffix: "+", label: "Diagnostic Bronchoscopies" },
+  { value: 400, suffix: "+", label: "EBUS-TBNA Procedures" },
+  { value: 300, suffix: "+", label: "Rigid Bronchoscopies" },
 ];
 
 function TrustStats() {
@@ -500,9 +518,79 @@ const AWARDS = [
 const PREVIOUS = [
   "Apollo Hospitals, Bengaluru",
   "Fortis Escorts Hospitals, Amritsar, Punjab",
+  "Fortis Escorts Heart Institute, Okhla, New Delhi",
   "Sir Ganga Ram Hospitals, New Delhi",
   "BLK Superspeciality Hospital, New Delhi",
   "PBM Group of Hospitals, Bikaner, Rajasthan",
+];
+
+const PUBLICATIONS = [
+  {
+    title:
+      "An innovative solution for prolonged air leaks: The customized endobronchial silicone blocker",
+    authors:
+      "Abhinav Singla, Rakesh Godara, Chakravarthi Lokanath, Suvarna Salankay, Ravindra Mehta",
+    journal: "European Respiratory Journal, 2017; 50: PA3786",
+    doi: "10.1183/1393003.congress-2017.PA3786",
+    href: "https://doi.org/10.1183/1393003.congress-2017.PA3786",
+  },
+  {
+    title:
+      "An innovative strategy for the emergent management of massive hemoptysis: The customized Endobronchial Silicone Blocker (CESB)",
+    authors: "Rakesh Godara, Rajani S Bhat, Abhinav Singla, Suvarna B G, Ravindra M Mehta",
+    journal: "American Journal of Respiratory and Critical Care Medicine, 2017; 195: A1648",
+  },
+];
+
+const PROCEDURES = [
+  {
+    icon: Microscope,
+    area: "Interventional Pulmonology",
+    items: [
+      { label: "Diagnostic bronchoscopy", volume: "700+" },
+      { label: "EBUS-guided TBNA", volume: "400+" },
+      { label: "Rigid bronchoscopy", volume: "300+" },
+      { label: "Conventional TBNA", volume: "100+" },
+      { label: "Radial EBUS-GS TBBx", volume: "50+" },
+      { label: "Cryobiopsy", volume: "10+" },
+    ],
+  },
+  {
+    icon: Syringe,
+    area: "Pleural Procedures",
+    items: [
+      { label: "Medical thoracoscopy / pleuroscopy", volume: "" },
+      { label: "Pleural biopsy & pleurodesis", volume: "" },
+      { label: "Indwelling tunneled pleural catheter", volume: "" },
+      { label: "Ultrasound-guided pleural procedures", volume: "" },
+    ],
+  },
+  {
+    icon: HeartPulse,
+    area: "Critical Care",
+    items: [
+      { label: "Percutaneous dilatational tracheostomy", volume: "300+" },
+      { label: "Central, arterial & HD lines", volume: "1000+" },
+      { label: "Mechanical ventilation in ARDS", volume: "" },
+      { label: "ICU bronchoscopy & lung ultrasound", volume: "" },
+    ],
+  },
+  {
+    icon: Activity,
+    area: "Diagnostics & Sleep",
+    items: [
+      { label: "Full PFT with DLCO", volume: "" },
+      { label: "Forced oscillation technique (FOT)", volume: "" },
+      { label: "6-minute walk test & night oximetry", volume: "" },
+      { label: "Level I and Level III sleep studies", volume: "" },
+    ],
+  },
+];
+
+const ACADEMIC_STATS = [
+  { value: "90+", label: "Conference & CME engagements", sub: "2016 – 2026" },
+  { value: "40+", label: "Invited faculty roles", sub: "National & international" },
+  { value: "60+", label: "Lectures & talks delivered", sub: "Including panel discussions" },
 ];
 
 function About() {
@@ -596,6 +684,108 @@ function About() {
               ))}
             </div>
           </div>
+          {/* Procedural skills & competencies */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              PROCEDURAL SKILLS &amp; COMPETENCIES
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {PROCEDURES.map((p) => (
+                <div
+                  key={p.area}
+                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                      <p.icon className="h-4 w-4" />
+                    </div>
+                    <div className="font-display text-sm font-semibold text-foreground">
+                      {p.area}
+                    </div>
+                  </div>
+                  <ul className="mt-3 space-y-1.5">
+                    {p.items.map((it) => (
+                      <li
+                        key={it.label}
+                        className="flex items-baseline justify-between gap-3 text-xs text-muted-foreground"
+                      >
+                        <span>{it.label}</span>
+                        {it.volume && (
+                          <span className="shrink-0 font-display text-sm font-semibold text-primary">
+                            {it.volume}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Academic & faculty */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              ACADEMIC &amp; FACULTY
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {ACADEMIC_STATS.map((a) => (
+                <div
+                  key={a.label}
+                  className="rounded-2xl border border-border bg-card p-4 text-center shadow-soft sm:text-left"
+                >
+                  <div className="font-display text-2xl font-semibold text-primary">{a.value}</div>
+                  <div className="mt-1 text-xs font-semibold text-foreground">{a.label}</div>
+                  <div className="mt-0.5 text-[11px] text-muted-foreground">{a.sub}</div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+              Invited faculty, panellist and organising-committee member at NAPCON, TESCON,
+              BRONCOCON, RAJPULMOCON, CAPI and ATICON, and at international meetings in Muscat,
+              Almaty, Istanbul and Abu Dhabi.
+            </p>
+          </div>
+          {/* Publications */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              PUBLICATIONS
+            </div>
+            <ol className="mt-5 space-y-4">
+              {PUBLICATIONS.map((p, i) => (
+                <li
+                  key={p.title}
+                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
+                >
+                  <div className="flex gap-3">
+                    <span className="font-display text-lg font-semibold text-primary/30">
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <div className="text-sm font-semibold leading-snug text-[#0a2540]">
+                        {p.title}
+                      </div>
+                      <div className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                        {p.authors}
+                      </div>
+                      <div className="mt-1.5 text-xs font-semibold text-foreground/80">
+                        {p.journal}
+                      </div>
+                      {p.doi && (
+                        <a
+                          href={p.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                        >
+                          DOI: {p.doi} <ExternalLink className="h-3 w-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
           {/* Previously associated */}
           <div className="mt-12">
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
@@ -617,8 +807,13 @@ function About() {
               Areas of Special Interest
             </div>
             <div className="mt-2 text-sm leading-relaxed text-foreground">
-              ARDS · Bronchoscopic Management of Hemoptysis · Central Airway Obstruction ·
-              Endobronchial Ultrasound (EBUS) · Medical Thoracoscopy / Pleuroscopy · Sleep Medicine
+              Lung Cancer · Interstitial Lung Diseases · Pleural Diseases · Sleep Disorders
+              Associated with Cardiac and Respiratory Disease
+            </div>
+            <div className="mt-3 border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground">
+              Procedural focus: Endobronchial Ultrasound (EBUS) · Rigid Bronchoscopy &amp; Central
+              Airway Obstruction · Medical Thoracoscopy / Pleuroscopy · Bronchoscopic Management of
+              Massive Haemoptysis · ARDS and Mechanical Ventilation
             </div>
           </div>
         </div>
@@ -633,41 +828,57 @@ const SERVICES = [
     icon: Wind,
     title: "Asthma & COPD Care",
     desc: "Long-term management of chronic obstructive and allergic airway disease.",
+    img: svcAsthmaCopd,
+    alt: "Nebuliser mask used in inhaled therapy for asthma and COPD",
   },
   {
     icon: Microscope,
     title: "Diagnostic Bronchoscopy",
     desc: "Advanced airway visualisation and biopsy under expert guidance.",
+    img: svcBronchoscopy,
+    alt: "Endoscopy suite with a procedure video monitor",
   },
   {
     icon: Activity,
     title: "EBUS",
     desc: "Minimally invasive sampling of mediastinal and hilar lymph nodes for diagnosis and lung-cancer staging.",
+    img: svcEbus,
+    alt: "Ultrasound system used for endobronchial ultrasound guidance",
   },
   {
     icon: Syringe,
     title: "Medical Thoracoscopy",
     desc: "Minimally invasive evaluation of pleural effusion and pleural disease, including pleural biopsy and selected therapeutic procedures.",
+    img: svcThoracoscopy,
+    alt: "Procedure room with monitoring equipment during a minimally invasive procedure",
   },
   {
     icon: HeartPulse,
     title: "Critical & ICU Care",
     desc: "Respiratory Critical Care - available through CK Birla Hospitals-RBH.",
+    img: svcCriticalCare,
+    alt: "Clinician reviewing a patient monitor in an intensive care unit",
   },
   {
     icon: Stethoscope,
     title: "Lung Infections, Tuberculosis & Bronchiectasis",
     desc: "Evidence-based management of pneumonia, tuberculosis and bronchiectasis.",
+    img: svcLungInfection,
+    alt: "Doctor reviewing chest radiographs on a light box",
   },
   {
     icon: ShieldCheck,
     title: "Pulmonary Rehabilitation & Post-ICU Recovery",
     desc: "Structured recovery support for breathlessness, deconditioning and respiratory rehabilitation after serious illness.",
+    img: svcRehabilitation,
+    alt: "Therapist guiding a patient through a supervised rehabilitation exercise",
   },
   {
     icon: Sparkles,
     title: "Interstitial Lung Disease",
     desc: "Evaluation and multidisciplinary management of interstitial lung disease, pulmonary fibrosis, hypersensitivity pneumonitis and sarcoidosis.",
+    img: svcIld,
+    alt: "Anatomical cross-section model of human lungs",
   },
 ];
 
@@ -691,13 +902,28 @@ function Services() {
           {SERVICES.map((s) => (
             <div
               key={s.title}
-              className="group rounded-2xl border border-border bg-card p-6 shadow-soft hover-lift"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft hover-lift"
             >
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-2xl gradient-primary text-primary-foreground shadow-soft transition group-hover:scale-105">
-                <s.icon className="h-5 w-5" />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={s.img}
+                  alt={s.alt}
+                  width={900}
+                  height={563}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a1e36]/75 via-[#0a1e36]/15 to-transparent" />
+                <div className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-xl bg-card/95 text-primary shadow-soft backdrop-blur transition group-hover:scale-105">
+                  <s.icon className="h-5 w-5" />
+                </div>
               </div>
-              <h3 className="font-display text-lg font-semibold text-foreground">{s.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="font-display text-base font-semibold leading-snug text-foreground sm:text-lg">
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -808,7 +1034,7 @@ function ClinicSection() {
                   <div className="text-sm text-foreground">
                     <div className="font-semibold">Address</div>
                     <div className="text-muted-foreground">
-                      Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura,
+                      C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura,
                       <br /> Jaipur, Rajasthan 302022
                     </div>
                   </div>
@@ -1282,7 +1508,7 @@ const FAQS = [
   },
   {
     q: "Where is Advance Pulmo Care located?",
-    a: "Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura, Jaipur, Rajasthan 302022.",
+    a: "C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura, Jaipur, Rajasthan 302022.",
   },
   {
     q: "Does Dr. Godara also consult at RBH?",
@@ -1659,19 +1885,5 @@ function LegalSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* ---------------- Small helpers ---------------- */
-function SectionEyebrow({ children, center }: { children: React.ReactNode; center?: boolean }) {
-  return (
-    <div
-      className={`inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary-soft/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary ${
-        center ? "" : ""
-      }`}
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-      {children}
-    </div>
   );
 }

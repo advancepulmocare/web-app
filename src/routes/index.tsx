@@ -38,6 +38,15 @@ import heroBg from "@/assets/hero-bg.jpg";
 import gettingReady from "@/assets/getting-ready.mp4";
 import drAchievements from "@/assets/dr-achievements.webp";
 import clinicBanner from "@/assets/clinic-banner.webp";
+import logoTransparent from "@/assets/logo_transparent.png";
+import svcAsthmaCopd from "@/assets/services/service-asthma-copd.jpg";
+import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
+import svcEbus from "@/assets/services/service-ebus.jpg";
+import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
+import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
+import svcLungInfection from "@/assets/services/service-lung-infection.jpg";
+import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
+import svcIld from "@/assets/services/service-ild.jpg";
 import {
   Dialog,
   DialogContent,
@@ -47,6 +56,23 @@ import {
 } from "@/components/ui/dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { BookingForm } from "@/components/booking-form";
+import { ProfessionalJourney } from "@/components/professional-journey";
+import { SectionEyebrow } from "@/components/section-eyebrow";
+import {
+  APC_PHONE_DISPLAY,
+  APC_PHONE_TEL,
+  APC_REGISTRATION,
+  APC_REGISTRATION_LABEL,
+  APC_WHATSAPP_NUMBER,
+  DOCTOR_DESIGNATION,
+  DOCTOR_EXPERIENCE,
+  DOCTOR_NAME,
+  EUROPEAN_DIPLOMA_NOTE,
+  GOOGLE_LISTING,
+  QUALIFICATIONS_SHORT,
+  RBH_MAPS,
+  RBH_PROFILE,
+} from "@/lib/site-content";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -55,20 +81,15 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Journey", href: "#professional-journey" },
   { label: "Services", href: "#services" },
   { label: "Clinic", href: "#clinic" },
   { label: "Reviews", href: "#testimonials" },
 ];
 
-const APC_PHONE_DISPLAY = "+91 99286 83032";
-const APC_PHONE_TEL = "+919928683032";
-const EMERGENCY_DISPLAY = "+91 9928683032";
-const WHATSAPP = `https://api.whatsapp.com/send/?phone=919928683032&text=${encodeURIComponent(
+const WHATSAPP = `https://api.whatsapp.com/send/?phone=${APC_WHATSAPP_NUMBER}&text=${encodeURIComponent(
   "Hi, I'd like to book a consultation at Advance Pulmo Care with Dr. Rakesh Godara.",
 )}&type=phone_number`;
-const RBH_PROFILE = "https://ckbirlahospitals.com/rbh/doctor/dr-rakesh-godara";
-const RBH_MAPS = "https://maps.app.goo.gl/7Dz3X2CESoLLxyL58";
-const GOOGLE_LISTING = "https://share.google/oag7YIhuu1Pz3YgcH";
 
 /* ---------------- Booking Context ---------------- */
 type BookingCtx = { open: () => void };
@@ -102,13 +123,36 @@ function BookingProvider({ children }: { children: ReactNode }) {
 }
 
 function Index() {
+  const physicianSchema = {
+    "@context": "https://schema.org",
+    "@type": "Physician",
+    name: DOCTOR_NAME,
+    medicalSpecialty: ["Pulmonology", "Critical Care Medicine", "Sleep Medicine"],
+    description: `${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
+    telephone: APC_PHONE_DISPLAY,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "C3-C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura",
+      addressLocality: "Jaipur",
+      addressRegion: "Rajasthan",
+      postalCode: "302022",
+      addressCountry: "IN",
+    },
+    alumniOf: ["PBM Group of Hospitals, Bikaner", "Sir Ganga Ram Hospital, New Delhi"],
+  };
+
   return (
     <BookingProvider>
-      <div id="home" className="min-h-screen bg-background text-foreground">
+      <div id="home" className="min-h-screen bg-background pb-24 text-foreground sm:pb-0">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }}
+        />
         <Header />
         <Hero />
         <TrustStats />
         <About />
+        <ProfessionalJourney />
         <Services />
         <ClinicSection />
         <WhyChoose />
@@ -117,6 +161,7 @@ function Index() {
         <Gallery />
         <FAQ />
         <BookingSection />
+        <LegalSection />
         <Footer />
         <FloatingActions />
         <Toaster richColors position="top-center" />
@@ -129,7 +174,6 @@ function Index() {
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const booking = useBooking();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
@@ -141,15 +185,13 @@ function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-border/70 py-2"
-          : "bg-transparent py-4"
+          ? "border-b border-border/70 bg-background/88 py-2 backdrop-blur-xl"
+          : "bg-transparent py-3 sm:py-4"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="#home" className="flex items-center gap-3">
-          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl gradient-primary text-primary-foreground shadow-soft">
-            <Stethoscope className="h-5 w-5" strokeWidth={2.2} />
-          </div>
+          <img src={logoTransparent} alt="" width={50} height={50} className=" object-contain" />
           <div className="leading-tight">
             <div className="font-display text-[1.05rem] font-semibold text-foreground">
               Advance Pulmo Care{" "}
@@ -160,7 +202,7 @@ function Header() {
           </div>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
           {NAV.map((n) => (
             <a
               key={n.href}
@@ -218,9 +260,8 @@ function Header() {
 
 /* ---------------- Hero ---------------- */
 function Hero() {
-  const booking = useBooking();
   return (
-    <section className="relative overflow-hidden pt-28 sm:pt-36 lg:pt-40">
+    <section className="relative overflow-hidden pt-24 sm:pt-32 lg:pt-40">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18]"
@@ -233,14 +274,21 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.85_0.09_215/0.5),_transparent_55%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom_left,_oklch(0.9_0.07_170/0.35),_transparent_60%)]" />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 pb-24 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-32">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 pb-16 sm:px-8 sm:pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-32">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/70 px-4 py-1.5 text-xs font-medium text-primary shadow-soft backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5" />
-            Senior Consultant · CK Birla Hospitals | RBH, Jaipur{" "}
+            <Sparkles className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-left leading-snug">
+              {DOCTOR_DESIGNATION.split(" | ").map((part, i, parts) => (
+                <span key={part}>
+                  {part}
+                  {i < parts.length - 1 && <br />}
+                </span>
+              ))}
+            </span>
           </div>
 
-          <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
+          <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[4.2rem]">
             Compassionate care.
             <br />
             <span className="gradient-text">Accurate diagnosis.</span>
@@ -248,12 +296,10 @@ function Hero() {
             Better breathing.
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Meet <strong className="text-foreground">Dr. Rakesh Godara</strong> — MD (Respiratory
-            Medicine), FNB Critical Care, EDRM (Europe). Founder of{" "}
-            <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura, and Sr.
-            Consultant Pulmonologist at CK Birla Hospitals | RBH, Jaipur, with 17+ years in
-            interventional pulmonology and critical care.
+          <p className="mt-5 max-w-xl text-[0.96rem] leading-relaxed text-muted-foreground sm:text-lg">
+            Meet <strong className="text-foreground">{DOCTOR_NAME}</strong> — {QUALIFICATIONS_SHORT}
+            . Founder of <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura,
+            and {DOCTOR_DESIGNATION}. {DOCTOR_EXPERIENCE}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -276,10 +322,10 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { icon: Award, label: "17+ Years Experience" },
-              { icon: Star, label: "4.9 ★ · 323 Google Reviews" },
+              { icon: Award, label: "20+ Years of Pulmonary, Critical Care & Sleep Medicine" },
+              { icon: Star, label: "4.9 ★ · 323+ Google Reviews" },
               { icon: HeartPulse, label: "Trusted by Patients" },
             ].map((b) => (
               <div
@@ -294,24 +340,22 @@ function Hero() {
         </div>
 
         {/* Portrait */}
-        <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+        <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-md lg:max-w-none">
           <div className="absolute -inset-6 -z-10 rounded-[2.5rem] gradient-accent opacity-40 blur-3xl" />
           <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-elevated">
             <img
               src={doctorPortrait}
-              alt="Dr. Rakesh Godara, Senior Pulmonologist"
+              alt="Dr. Rakesh Godara, pulmonologist"
               width={1024}
               height={1280}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-primary/85 via-primary/25 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 rounded-2xl bg-background/80 p-4 backdrop-blur-xl shadow-soft">
               <div className="font-display text-lg font-semibold text-foreground">
-                Dr. Rakesh Godara
+                {DOCTOR_NAME}
               </div>
-              <div className="text-xs text-muted-foreground">
-                MD · FNB (Critical Care) · EDRM (Europe)
-              </div>
+              <div className="text-xs text-muted-foreground">{QUALIFICATIONS_SHORT}</div>
             </div>
           </div>
 
@@ -321,7 +365,7 @@ function Hero() {
             </div>
             <div className="leading-tight">
               <div className="text-sm font-semibold">4.9 ★ Rating</div>
-              <div className="text-[11px] text-muted-foreground">323 Google reviews</div>
+              <div className="text-[11px] text-muted-foreground">323+ Google reviews</div>
             </div>
           </div>
 
@@ -335,7 +379,7 @@ function Hero() {
             <div className="leading-tight">
               <div className="text-sm font-semibold">Interventional Pulmonology</div>
               <div className="text-[11px] text-muted-foreground">
-                Bronchoscopy · EBUS · Thoracoscopy
+                Bronchoscopy · EBUS · Airway Procedures
               </div>
             </div>
           </div>
@@ -364,10 +408,10 @@ function useCountUp(target: number, active: boolean, duration = 1400) {
 }
 
 const STATS = [
-  { value: 17, suffix: "+", label: "Years of Experience" },
-  { value: 323, suffix: "+", label: "Verified Google Reviews" },
-  { value: 49, suffix: "★", label: "4.9 Average Rating", divide: 10 },
-  { value: 5, suffix: "", label: "Global Qualifications" },
+  { value: 20, suffix: "+", label: "Years of Experience" },
+  { value: 700, suffix: "+", label: "Diagnostic Bronchoscopies" },
+  { value: 400, suffix: "+", label: "EBUS-TBNA Procedures" },
+  { value: 300, suffix: "+", label: "Rigid Bronchoscopies" },
 ];
 
 function TrustStats() {
@@ -423,27 +467,130 @@ function StatCard({
 
 /* ---------------- About ---------------- */
 const EDUCATION = [
-  { title: "MBBS", sub: "SPMC & PBM Hospitals, Bikaner · 2004" },
-  { title: "MD — Respiratory Medicine", sub: "SPMC & PBM Hospitals, Bikaner · 2009" },
   {
-    title: "IDCCM — Indian Diploma of Critical Care Medicine",
-    sub: "Sir Ganga Ram Hospital, Delhi · 2011",
+    title: "MD — Pulmonary Medicine",
+    sub: "PBM Group of Hospitals, Bikaner · June 2006 – June 2009",
+  },
+  {
+    title: "IDCCM — Critical Care Medicine",
+    sub: "Sir Ganga Ram Hospital, New Delhi · January 2010 – March 2011",
   },
   {
     title: "FNB — Critical Care Medicine",
-    sub: "Fortis Escorts Heart Institute, Okhla, Delhi · 2013",
+    sub: "Fortis Escorts Heart Institute, Okhla, New Delhi · March 2011 – July 2013",
   },
   {
-    title: "EDRM — European Diploma of Respiratory Medicine",
-    sub: "European Respiratory Society, Netherlands · 2015",
+    title: "EDARM — European Diploma of Adult Respiratory Medicine",
+    sub: `${EUROPEAN_DIPLOMA_NOTE} · European Respiratory Society (ERS), Netherlands · September 2015`,
+  },
+  {
+    title: "Advanced Interventional Pulmonology & Critical Care Training",
+    sub: "December 2013 – March 2016",
+  },
+  {
+    title: "Observership in Interventional Pulmonology",
+    sub: "Cleveland Clinic, Cleveland, Ohio, USA · April 2016",
+  },
+];
+
+const CERTIFICATIONS = [
+  { title: "Advanced Trauma Life Support (ATLS)", year: "2012" },
+  { title: "International Trauma Life Support (ITLS)", year: "2012" },
+  { title: "Advanced Cardiac Life Support (ACLS)", year: "2011" },
+  { title: "Winfocus Emergency Ultrasound Course", year: "2011" },
+];
+
+const AWARDS = [
+  {
+    title: "Dr. Kalicharan Mathur Best Paper Award",
+    sub: "Gold medal · 8th NCCP RajPulmocon · 2008",
+  },
+  {
+    title: "Sepsis Quiz — 2nd Position",
+    sub: "Sepsis Conference, New Delhi · 2011",
+  },
+  {
+    title: "Interesting Cases in EBUS — First Prize",
+    sub: "EUS/EBUS Conference, Noida · 2016",
   },
 ];
 
 const PREVIOUS = [
-  "Apollo Hospitals, Bangalore",
-  "Fortis Escorts Heart Institute, Amritsar",
-  "Sir Ganga Ram Hospital, Delhi",
-  "SP Medical College & PBM Group of Hospitals, Bikaner",
+  "Apollo Hospitals, Bengaluru",
+  "Fortis Escorts Hospitals, Amritsar, Punjab",
+  "Fortis Escorts Heart Institute, Okhla, New Delhi",
+  "Sir Ganga Ram Hospitals, New Delhi",
+  "BLK Superspeciality Hospital, New Delhi",
+  "PBM Group of Hospitals, Bikaner, Rajasthan",
+];
+
+const PUBLICATIONS = [
+  {
+    title:
+      "An innovative solution for prolonged air leaks: The customized endobronchial silicone blocker",
+    authors:
+      "Abhinav Singla, Rakesh Godara, Chakravarthi Lokanath, Suvarna Salankay, Ravindra Mehta",
+    journal: "European Respiratory Journal, 2017; 50: PA3786",
+    doi: "10.1183/1393003.congress-2017.PA3786",
+    href: "https://doi.org/10.1183/1393003.congress-2017.PA3786",
+  },
+  {
+    title:
+      "An innovative strategy for the emergent management of massive hemoptysis: The customized Endobronchial Silicone Blocker (CESB)",
+    authors: "Rakesh Godara, Rajani S Bhat, Abhinav Singla, Suvarna B G, Ravindra M Mehta",
+    journal: "American Journal of Respiratory and Critical Care Medicine, 2017; 195: A1648",
+  },
+];
+
+const PROCEDURES = [
+  {
+    icon: Microscope,
+    area: "Interventional Pulmonology",
+    items: [
+      { label: "Diagnostic bronchoscopy", volume: "700+" },
+      { label: "EBUS-guided TBNA", volume: "400+" },
+      { label: "Rigid bronchoscopy", volume: "300+" },
+      { label: "Conventional TBNA", volume: "100+" },
+      { label: "Radial EBUS-GS TBBx", volume: "50+" },
+      { label: "Cryobiopsy", volume: "10+" },
+    ],
+  },
+  {
+    icon: Syringe,
+    area: "Pleural Procedures",
+    items: [
+      { label: "Medical thoracoscopy / pleuroscopy", volume: "" },
+      { label: "Pleural biopsy & pleurodesis", volume: "" },
+      { label: "Indwelling tunneled pleural catheter", volume: "" },
+      { label: "Ultrasound-guided pleural procedures", volume: "" },
+    ],
+  },
+  {
+    icon: HeartPulse,
+    area: "Critical Care",
+    items: [
+      { label: "Percutaneous dilatational tracheostomy", volume: "300+" },
+      { label: "Central, arterial & HD lines", volume: "1000+" },
+      { label: "Mechanical ventilation in ARDS", volume: "" },
+      { label: "ICU bronchoscopy & lung ultrasound", volume: "" },
+    ],
+  },
+  {
+    icon: Activity,
+    area: "Diagnostics & Sleep",
+    items: [
+      { label: "Full PFT with DLCO", volume: "" },
+      { label: "Forced oscillation technique (FOT)", volume: "" },
+      { label: "6-minute walk test & night oximetry", volume: "" },
+      { label: "Level I and Level III sleep studies", volume: "" },
+    ],
+  },
+];
+
+const ACADEMIC_STATS = [
+  { value: "90+", label: "Conference & CME engagements", sub: "2016 – 2026" },
+  { value: "40+", label: "Invited faculty roles", sub: "National & international" },
+  { value: "60+", label: "Lectures & talks delivered", sub: "Including panel discussions" },
 ];
 
 function About() {
@@ -476,23 +623,21 @@ function About() {
         <div className="order-1 lg:order-2">
           <SectionEyebrow>About the Doctor</SectionEyebrow>
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            Two decades o<span className="font-[Georgia,serif]">f</span> caring{" "}
-            <span className="font-[Georgia,serif]">f</span>or{" "}
-            <span className="gradient-text">every breath.</span>
+            Pulmonary, critical care <span className="font-[Georgia,serif]">&amp;</span> sleep
+            medicine <span className="gradient-text">with calm precision.</span>
           </h2>
           <p className="mt-5 text-[0.98rem] leading-relaxed text-muted-foreground">
-            Dr. Rakesh Godara is the founder of{" "}
+            {DOCTOR_NAME} is the founder of{" "}
             <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura — his
-            personal chest & interventional pulmonology clinic — and serves as Sr. Consultant &
-            Additional Director in Pulmonology at CK Birla Hospitals | RBH, Jaipur. He specialises
-            in interventional pulmonology, critical care and complex airway disorders, with
-            international training and a reputation built on clarity, honesty and patient-first
-            care.
+            personal chest & interventional pulmonology clinic — and serves as {DOCTOR_DESIGNATION}.{" "}
+            {DOCTOR_EXPERIENCE} He specialises in interventional pulmonology, critical care and
+            complex airway disorders, with international training and a reputation built on clarity,
+            honesty and patient-first care.
           </p>{" "}
           {/* Education timeline */}
           <div className="mt-10">
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              EDUCATION &amp; FELLOWSHIPS
+              EDUCATION &amp; TRAINING
             </div>
             <ol className="relative mt-6 space-y-6 border-l border-slate-200 pl-6">
               {EDUCATION.map((e) => (
@@ -500,6 +645,143 @@ function About() {
                   <span className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-300 bg-white" />
                   <div className="text-base font-bold text-[#0a2540]">{e.title}</div>
                   <div className="mt-1 text-sm text-[#4a5568]">{e.sub}</div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          {/* Awards */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              AWARDS
+            </div>
+            <ul className="mt-5 space-y-4">
+              {AWARDS.map((a) => (
+                <li key={a.title} className="flex items-start gap-3">
+                  <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="text-base font-bold text-[#0a2540]">{a.title}</div>
+                    <div className="mt-0.5 text-sm text-[#4a5568]">{a.sub}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Certifications */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              CERTIFICATIONS
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {CERTIFICATIONS.map((c) => (
+                <span
+                  key={c.title}
+                  className="rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-semibold text-[#4a5568] shadow-sm"
+                >
+                  {c.title} · {c.year}
+                </span>
+              ))}
+            </div>
+          </div>
+          {/* Procedural skills & competencies */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              PROCEDURAL SKILLS &amp; COMPETENCIES
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {PROCEDURES.map((p) => (
+                <div
+                  key={p.area}
+                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                      <p.icon className="h-4 w-4" />
+                    </div>
+                    <div className="font-display text-sm font-semibold text-foreground">
+                      {p.area}
+                    </div>
+                  </div>
+                  <ul className="mt-3 space-y-1.5">
+                    {p.items.map((it) => (
+                      <li
+                        key={it.label}
+                        className="flex items-baseline justify-between gap-3 text-xs text-muted-foreground"
+                      >
+                        <span>{it.label}</span>
+                        {it.volume && (
+                          <span className="shrink-0 font-display text-sm font-semibold text-primary">
+                            {it.volume}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Academic & faculty */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              ACADEMIC &amp; FACULTY
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {ACADEMIC_STATS.map((a) => (
+                <div
+                  key={a.label}
+                  className="rounded-2xl border border-border bg-card p-4 text-center shadow-soft sm:text-left"
+                >
+                  <div className="font-display text-2xl font-semibold text-primary">{a.value}</div>
+                  <div className="mt-1 text-xs font-semibold text-foreground">{a.label}</div>
+                  <div className="mt-0.5 text-[11px] text-muted-foreground">{a.sub}</div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+              Invited faculty, panellist and organising-committee member at NAPCON, TESCON,
+              BRONCOCON, RAJPULMOCON, CAPI and ATICON, and at international meetings in Muscat,
+              Almaty, Istanbul and Abu Dhabi.
+            </p>
+          </div>
+          {/* Publications */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              PUBLICATIONS
+            </div>
+            <ol className="mt-5 space-y-4">
+              {PUBLICATIONS.map((p, i) => (
+                <li
+                  key={p.title}
+                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
+                >
+                  <div className="flex gap-3">
+                    <span className="font-display text-lg font-semibold text-primary/30">
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <div className="text-sm font-semibold leading-snug text-[#0a2540]">
+                        {p.title}
+                      </div>
+                      <div className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                        {p.authors}
+                      </div>
+                      <div className="mt-1.5 text-xs font-semibold text-foreground/80">
+                        {p.journal}
+                      </div>
+                      {p.doi && (
+                        <a
+                          href={p.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                        >
+                          DOI: {p.doi} <ExternalLink className="h-3 w-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </li>
               ))}
             </ol>
@@ -525,8 +807,13 @@ function About() {
               Areas of Special Interest
             </div>
             <div className="mt-2 text-sm leading-relaxed text-foreground">
-              ARDS · Bronchoscopic Management of Hemoptysis · Central Airway Obstruction ·
-              Endobronchial Ultrasound (EBUS) · Medical Thoracoscopy / Pleuroscopy
+              Lung Cancer · Interstitial Lung Diseases · Pleural Diseases · Sleep Disorders
+              Associated with Cardiac and Respiratory Disease
+            </div>
+            <div className="mt-3 border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground">
+              Procedural focus: Endobronchial Ultrasound (EBUS) · Rigid Bronchoscopy &amp; Central
+              Airway Obstruction · Medical Thoracoscopy / Pleuroscopy · Bronchoscopic Management of
+              Massive Haemoptysis · ARDS and Mechanical Ventilation
             </div>
           </div>
         </div>
@@ -541,41 +828,57 @@ const SERVICES = [
     icon: Wind,
     title: "Asthma & COPD Care",
     desc: "Long-term management of chronic obstructive and allergic airway disease.",
+    img: svcAsthmaCopd,
+    alt: "Nebuliser mask used in inhaled therapy for asthma and COPD",
   },
   {
     icon: Microscope,
     title: "Diagnostic Bronchoscopy",
     desc: "Advanced airway visualisation and biopsy under expert guidance.",
+    img: svcBronchoscopy,
+    alt: "Endoscopy suite with a procedure video monitor",
   },
   {
     icon: Activity,
     title: "EBUS",
-    desc: "Endobronchial ultrasound for precise mediastinal and lung staging.",
+    desc: "Minimally invasive sampling of mediastinal and hilar lymph nodes for diagnosis and lung-cancer staging.",
+    img: svcEbus,
+    alt: "Ultrasound system used for endobronchial ultrasound guidance",
   },
   {
     icon: Syringe,
     title: "Medical Thoracoscopy",
-    desc: "Minimally invasive diagnosis and treatment of pleural disease.",
+    desc: "Minimally invasive evaluation of pleural effusion and pleural disease, including pleural biopsy and selected therapeutic procedures.",
+    img: svcThoracoscopy,
+    alt: "Procedure room with monitoring equipment during a minimally invasive procedure",
   },
   {
     icon: HeartPulse,
     title: "Critical & ICU Care",
-    desc: "Ventilator management and complex respiratory emergencies.",
+    desc: "Respiratory Critical Care - available through CK Birla Hospitals-RBH.",
+    img: svcCriticalCare,
+    alt: "Clinician reviewing a patient monitor in an intensive care unit",
   },
   {
     icon: Stethoscope,
-    title: "Lung Infections & TB",
-    desc: "Evidence-based treatment of pneumonia, TB and bronchiectasis.",
+    title: "Lung Infections, Tuberculosis & Bronchiectasis",
+    desc: "Evidence-based management of pneumonia, tuberculosis and bronchiectasis.",
+    img: svcLungInfection,
+    alt: "Doctor reviewing chest radiographs on a light box",
   },
   {
     icon: ShieldCheck,
-    title: "Post-COVID Recovery",
-    desc: "Pulmonary rehabilitation for lasting respiratory well-being.",
+    title: "Pulmonary Rehabilitation & Post-ICU Recovery",
+    desc: "Structured recovery support for breathlessness, deconditioning and respiratory rehabilitation after serious illness.",
+    img: svcRehabilitation,
+    alt: "Therapist guiding a patient through a supervised rehabilitation exercise",
   },
   {
     icon: Sparkles,
     title: "Interstitial Lung Disease",
-    desc: "Comprehensive workup for sarcoidosis, fibrosis and ILD.",
+    desc: "Evaluation and multidisciplinary management of interstitial lung disease, pulmonary fibrosis, hypersensitivity pneumonitis and sarcoidosis.",
+    img: svcIld,
+    alt: "Anatomical cross-section model of human lungs",
   },
 ];
 
@@ -590,8 +893,8 @@ function Services() {
             <span className="gradient-text">calm precision.</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            From routine consultations to complex airway interventions — modern equipment, trusted
-            protocols, and a team that listens.
+            From outpatient respiratory care to advanced interventional procedures, the focus
+            remains on clear diagnosis, appropriate treatment and careful follow-up.
           </p>
         </div>
 
@@ -599,15 +902,55 @@ function Services() {
           {SERVICES.map((s) => (
             <div
               key={s.title}
-              className="group rounded-2xl border border-border bg-card p-6 shadow-soft hover-lift"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft hover-lift"
             >
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-2xl gradient-primary text-primary-foreground shadow-soft transition group-hover:scale-105">
-                <s.icon className="h-5 w-5" />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={s.img}
+                  alt={s.alt}
+                  width={900}
+                  height={563}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a1e36]/75 via-[#0a1e36]/15 to-transparent" />
+                <div className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-xl bg-card/95 text-primary shadow-soft backdrop-blur transition group-hover:scale-105">
+                  <s.icon className="h-5 w-5" />
+                </div>
               </div>
-              <h3 className="font-display text-lg font-semibold text-foreground">{s.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="font-display text-base font-semibold leading-snug text-foreground sm:text-lg">
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="rounded-3xl border border-border bg-card p-6 shadow-soft">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Clinic Consultations & Diagnostics
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Sleep apnoea and sleep medicine, severe asthma and biologic therapy review, allergy
+              evaluation, SPT and SLIT, and bronchiectasis care are assessed in clinic with further
+              testing and treatment planned according to clinical indication.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-border bg-card p-6 shadow-soft">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Hospital-Based Diagnostics & Procedures
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Pulmonary function testing including DLCO, FOT and FeNO, Level I and Level III sleep
+              studies, rigid bronchoscopy, central airway intervention and higher-acuity respiratory
+              critical care are hospital-based services and should be coordinated through CK Birla
+              Hospitals - RBH.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -622,11 +965,10 @@ const APC_HOURS = [
   ["Thursday", "6:00 – 8:00 PM"],
   ["Friday", "6:00 – 8:00 PM"],
   ["Saturday", "6:00 – 8:00 PM"],
-  ["Sunday", "Emergency Only"],
+  ["Sunday", "Closed"],
 ];
 
 function ClinicSection() {
-  const booking = useBooking();
   return (
     <section id="clinic" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -672,7 +1014,7 @@ function ClinicSection() {
                 </div>
                 <div className="text-sm font-semibold text-foreground">
                   4.9 ·{" "}
-                  <span className="text-muted-foreground font-medium">323 Google reviews</span>
+                  <span className="text-muted-foreground font-medium">323+ Google reviews</span>
                 </div>
                 <a
                   href={GOOGLE_LISTING}
@@ -692,7 +1034,7 @@ function ClinicSection() {
                   <div className="text-sm text-foreground">
                     <div className="font-semibold">Address</div>
                     <div className="text-muted-foreground">
-                      Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura,
+                      C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura,
                       <br /> Jaipur, Rajasthan 302022
                     </div>
                   </div>
@@ -727,6 +1069,10 @@ function ClinicSection() {
                           <span className="font-medium text-foreground">{h}</span>
                         </div>
                       ))}
+                    </div>
+                    <div className="mt-2 text-xs text-muted-foreground">
+                      For emergencies, please contact the nearest emergency department or hospital
+                      emergency desk immediately.
                     </div>
                   </div>
                 </div>
@@ -774,7 +1120,7 @@ function ClinicSection() {
                   Also consulting at
                 </div>
                 <div className="font-display text-xl font-semibold text-foreground">
-                  CK Birla Hospitals | RBH
+                  CK Birla Hospitals – RBH
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Gopalpura Bypass Road, near Triveni Flyover, Jaipur
@@ -812,10 +1158,12 @@ function ClinicSection() {
               </div>
             </div>
             <a
-              href={`tel:${APC_PHONE_TEL}`}
+              href={RBH_PROFILE}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              <Phone className="h-4 w-4" /> Call to Book
+              <ExternalLink className="h-4 w-4" /> View RBH Profile
             </a>
           </div>
         </div>
@@ -828,8 +1176,8 @@ function ClinicSection() {
 const WHY = [
   {
     icon: Award,
-    title: "Internationally Trained",
-    desc: "Qualifications from India and Europe (ERS).",
+    title: "Advanced Respiratory Training",
+    desc: "Training across pulmonology, critical care and airway intervention.",
   },
   {
     icon: HeartPulse,
@@ -894,12 +1242,16 @@ function WhyChoose() {
 
 /* ---------------- Journey ---------------- */
 const STEPS = [
-  { n: "01", title: "Book Appointment", desc: "In-app booking, WhatsApp or phone." },
+  { n: "01", title: "Book Appointment", desc: "Form, WhatsApp or phone request." },
   { n: "02", title: "Visit the Clinic", desc: "Minimal wait, warm reception." },
   { n: "03", title: "Consultation", desc: "Detailed history and examination." },
   { n: "04", title: "Diagnosis", desc: "Precise, evidence-based workup." },
   { n: "05", title: "Treatment Plan", desc: "Tailored, transparent and clear." },
-  { n: "06", title: "Follow-up Care", desc: "Ongoing support until you're well." },
+  {
+    n: "06",
+    title: "Confirmation & Follow-up",
+    desc: "Requests are confirmed separately by the clinic team.",
+  },
 ];
 
 function Journey() {
@@ -998,7 +1350,7 @@ function Testimonials() {
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-primary hover:border-primary/30"
           >
-            View all 323 reviews <ExternalLink className="h-3.5 w-3.5" />
+            View all 323+ reviews <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
 
@@ -1148,27 +1500,27 @@ function Gallery() {
 const FAQS = [
   {
     q: "How can I book an appointment?",
-    a: "Use the in-app booking form on this website (top-right or the Book section). You can also book on WhatsApp or by calling the clinic directly.",
+    a: "Use the appointment request form on this website (top-right or the Book section). You can also request an appointment on WhatsApp or by calling the clinic directly.",
   },
   {
     q: "What are the clinic timings at Advance Pulmo Care?",
-    a: "Monday to Saturday, 6:00 PM to 8:00 PM (30-minute slots). Sunday is for emergencies only.",
+    a: "Monday to Saturday, 6:00 PM to 8:00 PM (30-minute slots). Sunday is closed for routine OPD appointments.",
   },
   {
     q: "Where is Advance Pulmo Care located?",
-    a: "Ashadeep Kingscourt, S2–S3, near Jeerota, Jagatpura, Jaipur, Rajasthan 302022.",
+    a: "C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura, Jaipur, Rajasthan 302022.",
   },
   {
     q: "Does Dr. Godara also consult at RBH?",
-    a: "Yes — Dr. Godara is Sr. Consultant & Additional Director in Pulmonology at CK Birla Hospitals | RBH, Gopalpura, Jaipur.",
+    a: `Yes — ${DOCTOR_NAME} also consults at CK Birla Hospitals – RBH, Jaipur, Monday to Saturday from 10:00 AM to 4:00 PM.`,
   },
   {
     q: "Do you accept walk-ins?",
-    a: "Walk-ins are accepted where possible, however we strongly recommend booking in advance to minimise waiting time.",
+    a: "Yes, walk-ins may be accommodated subject to availability. Prior appointments are recommended, and booked patients may be given priority.",
   },
   {
     q: "How can I reach the clinic in an emergency?",
-    a: `For respiratory emergencies, the 24×7 line is ${EMERGENCY_DISPLAY}.`,
+    a: "Please contact the nearest emergency department or hospital emergency desk immediately. Do not use the routine appointment form or WhatsApp appointment help for emergencies.",
   },
 ];
 
@@ -1238,18 +1590,18 @@ function BookingSection() {
             </h2>
             <div className="mt-4 h-[3px] w-12 rounded-full bg-blue-500" />
             <p className="mt-6 max-w-md text-muted-foreground">
-              Take command of your lung health today. Dr. Godara provides dedicated OPD
-              consultations at <strong className="text-foreground">Advance Pulmo Care</strong>,
-              Jagatpura, and Rukmani Birla Hospital (RBH). Use this interactive system to find open
-              diagnostic sessions.
+              Request an appointment at{" "}
+              <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura. This form
+              is for clinic appointment coordination only. CK Birla Hospitals – RBH remains a
+              separate hospital consultation channel.
             </p>
 
             <div className="mt-auto">
               <div className="mt-10 rounded-3xl bg-[#0a1e36] p-6 text-white shadow-elevated sm:p-7">
                 <div className="text-sm font-bold">Need Direct Support?</div>
                 <p className="mt-2 text-sm text-slate-200">
-                  If you are looking for direct status updates, emergency guidelines, or immediate
-                  booking coordination at Advance Pulmo Care, dial our coordinator directly:
+                  For clinic appointment coordination, follow-up questions or status updates,
+                  contact the Advance Pulmo Care team directly:
                 </p>
                 <a
                   href={`tel:${APC_PHONE_TEL}`}
@@ -1281,11 +1633,10 @@ function Footer() {
             <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#0a1e36] text-white shadow-soft">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <div className="font-display text-xl font-bold text-[#0a1e36]">Dr. Rakesh Godara</div>
+            <div className="font-display text-xl font-bold text-[#0a1e36]">{DOCTOR_NAME}</div>
           </div>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Sr. Consultant Pulmonologist &amp; Additional Director at CK Birla Hospitals — RBH,
-            Jaipur. Providing advanced interventional respiratory care with compassion.
+            {DOCTOR_DESIGNATION}. {DOCTOR_EXPERIENCE}
           </p>
           <div className="mt-6 flex gap-3">
             {[
@@ -1295,12 +1646,12 @@ function Footer() {
                 icon: Linkedin,
               },
               {
-                href: "https://www.instagram.com/godararakesh2021/",
+                href: "https://www.instagram.com/advance_pulmocare",
                 label: "Instagram",
                 icon: Instagram,
               },
               {
-                href: "https://www.facebook.com/drgodarainterventionalpulmonology/",
+                href: "https://www.facebook.com/share/19CYVCEckf",
                 label: "Facebook",
                 icon: Facebook,
               },
@@ -1346,6 +1697,21 @@ function Footer() {
               </a>
             </li>
             <li>
+              <a href="#privacy-policy" className="hover:text-primary">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="#medical-disclaimer" className="hover:text-primary">
+                Medical Disclaimer
+              </a>
+            </li>
+            <li>
+              <a href="#terms-of-use" className="hover:text-primary">
+                Terms of Use
+              </a>
+            </li>
+            <li>
               <a
                 href={RBH_PROFILE}
                 target="_blank"
@@ -1370,28 +1736,31 @@ function Footer() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Sunday</span>
-              <span className="font-bold text-[#0a1e36]">Emergency Only</span>
+              <span className="font-bold text-[#0a1e36]">Closed</span>
             </div>
           </div>
 
           <div className="mt-6 rounded-2xl bg-blue-50/50 p-5 border border-blue-100/30">
             <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600">
-              EMERGENCY 24×7
+              EMERGENCY CARE
             </div>
-            <a
-              href={`tel:${EMERGENCY_DISPLAY}`}
-              className="mt-2 block font-display text-2xl font-bold text-[#0a1e36] tracking-wide hover:text-blue-600 transition"
-            >
-              {EMERGENCY_DISPLAY}
-            </a>
+            <div className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              For urgent breathing emergencies, contact the nearest emergency department or hospital
+              emergency desk immediately. Routine clinic calls and WhatsApp appointment help should
+              not be used as emergency services.
+            </div>
           </div>
         </div>
       </div>
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-muted-foreground sm:flex-row sm:px-8">
-          <div>© {new Date().getFullYear()} Dr. Rakesh Godara. All rights reserved.</div>
-          <div>Registration: 23258 — Rajasthan Medical Council, 2005</div>
+          <div>
+            © {new Date().getFullYear()} {DOCTOR_NAME}. All rights reserved.
+          </div>
+          <div>
+            Registration: {APC_REGISTRATION} — {APC_REGISTRATION_LABEL}
+          </div>
         </div>
       </div>
     </footer>
@@ -1406,38 +1775,26 @@ function FloatingActions() {
     return () => clearTimeout(t);
   }, []);
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6">
-      <div className="pointer-events-auto flex flex-col items-end gap-3">
-        {/* Phone button on mobile */}
-        <a
-          href={`tel:${APC_PHONE_TEL}`}
-          aria-label="Call clinic"
-          className="grid h-12 w-12 place-items-center rounded-full bg-[#0a1e36] text-[#ffffff] shadow-elevated sm:hidden"
-        >
-          <Phone className="h-5 w-5" />
-        </a>
-
-        {/* WhatsApp + Speech bubble layout row */}
-        <div className="flex items-center gap-3">
-          {/* Speech-bubble caption */}
+    <>
+      <div className="pointer-events-none fixed bottom-6 right-6 z-40 hidden sm:block">
+        <div className="pointer-events-auto flex items-center gap-3">
           <div
-            className={`relative rounded-full bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#0a1e36] shadow-elevated border border-slate-100 transition-all duration-500 whitespace-nowrap ${
-              showTip ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+            className={`relative rounded-full border border-slate-100 bg-white px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-[#0a1e36] shadow-elevated transition-all duration-500 ${
+              showTip ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
             }`}
           >
             <span className="mr-2 inline-flex h-2 w-2 rounded-full bg-[#09d261] align-middle animate-pulse" />
-            Online Support Desk
+            WhatsApp Appointment Desk
             <span
               aria-hidden
-              className="absolute -right-1.5 top-1/2 -translate-y-1/2 h-3 w-3 rotate-45 bg-white border-r border-t border-slate-100"
+              className="absolute -right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-r border-t border-slate-100 bg-white"
             />
           </div>
-
           <a
             href={WHATSAPP}
             target="_blank"
             rel="noreferrer"
-            aria-label="Chat on WhatsApp"
+            aria-label="WhatsApp appointment help"
             className="animate-pulse-ring grid h-14 w-14 place-items-center rounded-full text-white shadow-elevated transition hover:scale-105"
             style={{ backgroundColor: "#09d261" }}
           >
@@ -1445,20 +1802,88 @@ function FloatingActions() {
           </a>
         </div>
       </div>
-    </div>
+
+      <div className="fixed inset-x-3 bottom-3 z-40 sm:hidden">
+        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-border bg-background/96 p-2 shadow-elevated backdrop-blur-xl">
+          <a
+            href={`tel:${APC_PHONE_TEL}`}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-card px-3 py-3 text-sm font-semibold text-foreground"
+          >
+            <Phone className="h-4 w-4 text-primary" />
+            Call
+          </a>
+          <a
+            href={WHATSAPP}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#09d261] px-3 py-3 text-sm font-semibold text-white"
+          >
+            <MessageCircle className="h-4 w-4" />
+            WhatsApp
+          </a>
+          <a
+            href="#book"
+            className="inline-flex items-center justify-center gap-2 rounded-xl gradient-primary px-3 py-3 text-sm font-semibold text-primary-foreground"
+          >
+            <Calendar className="h-4 w-4" />
+            Book
+          </a>
+        </div>
+      </div>
+    </>
   );
 }
 
-/* ---------------- Small helpers ---------------- */
-function SectionEyebrow({ children, center }: { children: React.ReactNode; center?: boolean }) {
+function LegalSection() {
   return (
-    <div
-      className={`inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary-soft/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary ${
-        center ? "" : ""
-      }`}
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-      {children}
-    </div>
+    <section className="border-t border-border bg-card/70 py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <article
+            id="privacy-policy"
+            className="rounded-3xl border border-border bg-card p-6 shadow-soft"
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Privacy Policy
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Information shared through this website is used only for appointment coordination and
+              related communication. Please avoid submitting emergency details or highly sensitive
+              medical information through the routine booking form. For corrections or follow-up,
+              contact the clinic at {APC_PHONE_DISPLAY}.
+            </p>
+          </article>
+
+          <article
+            id="medical-disclaimer"
+            className="rounded-3xl border border-border bg-card p-6 shadow-soft"
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Medical Disclaimer
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Website content is informational and does not replace an in-person medical
+              consultation, emergency evaluation or formal treatment plan. Appointment requests are
+              not emergency triage and are confirmed separately by the clinic or hospital team.
+            </p>
+          </article>
+
+          <article
+            id="terms-of-use"
+            className="rounded-3xl border border-border bg-card p-6 shadow-soft"
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Terms of Use
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Submitting this form sends an appointment request for Advance Pulmo Care only and does
+              not guarantee a confirmed slot. CK Birla Hospitals – RBH remains a separate
+              consultation channel. Use the clinic phone or official RBH profile for the relevant
+              booking path.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
   );
 }

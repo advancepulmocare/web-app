@@ -409,8 +409,8 @@ function useCountUp(target: number, active: boolean, duration = 1400) {
 
 const STATS = [
   { value: 20, suffix: "+", label: "Years of Experience" },
-  { value: 700, suffix: "+", label: "Diagnostic Bronchoscopies" },
-  { value: 400, suffix: "+", label: "EBUS-TBNA Procedures" },
+  { value: 8000, suffix: "+", label: "Diagnostic Bronchoscopies" },
+  { value: 500, suffix: "+", label: "EBUS-TBNA Procedures" },
   { value: 300, suffix: "+", label: "Rigid Bronchoscopies" },
 ];
 
@@ -547,8 +547,8 @@ const PROCEDURES = [
     icon: Microscope,
     area: "Interventional Pulmonology",
     items: [
-      { label: "Diagnostic bronchoscopy", volume: "700+" },
-      { label: "EBUS-guided TBNA", volume: "400+" },
+      { label: "Diagnostic bronchoscopy", volume: "8000+" },
+      { label: "EBUS-guided TBNA", volume: "500+" },
       { label: "Rigid bronchoscopy", volume: "300+" },
       { label: "Conventional TBNA", volume: "100+" },
       { label: "Radial EBUS-GS TBBx", volume: "50+" },

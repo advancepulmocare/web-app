@@ -18,8 +18,10 @@ export const APC_PHONE_DISPLAY = "+91 99286 83032";
 export const APC_PHONE_TEL = "+919928683032";
 export const APC_WHATSAPP_NUMBER = "919928683032";
 
-export const APC_REGISTRATION = "RMC023258";
-export const APC_REGISTRATION_LABEL = "Rajasthan Medical Council, 15-03-2005";
+/** Primary Rajasthan Medical Council MBBS registration (certificate No. 23258). */
+export const APC_REGISTRATION = "23258";
+export const APC_REGISTRATION_LABEL = "Rajasthan Medical Council · MBBS · 15-03-2005";
+export const APC_REGISTRATION_VALIDITY = "Renewed · valid until 14-03-2030";
 
 export const APC_ADDRESS =
   "C3–C4, Ashadeep Kingscourt, near Jeerota Petrol Pump, Jagatpura, Jaipur, Rajasthan 302022";

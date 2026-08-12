@@ -63,16 +63,17 @@ const MILESTONES: Milestone[] = [
     phase: 0,
     years: "1998 – 2004",
     title: "MBBS",
-    org: "SPMC & PBM Group of Hospitals, Bikaner",
-    detail: "Undergraduate medical education and internship.",
+    org: "S.P. Medical College, Bikaner · University of Rajasthan",
+    detail:
+      "Bachelor of Medicine and Bachelor of Surgery. Registered with the Rajasthan Medical Council (Reg. No. 23258) on 15 March 2005.",
     icon: GraduationCap,
   },
   {
     phase: 0,
     years: "Jun 2006 – Jun 2009",
     title: "MD — Pulmonary Medicine",
-    org: "PBM Group of Hospitals, Bikaner, Rajasthan",
-    detail: "Postgraduate specialisation alongside senior residency in pulmonary medicine.",
+    org: "S.P. Medical College / PBM Group of Hospitals, Bikaner, Rajasthan",
+    detail: "Postgraduate specialisation in pulmonary medicine.",
     icon: Stethoscope,
   },
   {

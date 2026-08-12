@@ -63,6 +63,7 @@ import {
   APC_PHONE_TEL,
   APC_REGISTRATION,
   APC_REGISTRATION_LABEL,
+  APC_REGISTRATION_VALIDITY,
   APC_WHATSAPP_NUMBER,
   DOCTOR_DESIGNATION,
   DOCTOR_EXPERIENCE,
@@ -493,6 +494,21 @@ const EDUCATION = [
   },
 ];
 
+const REGISTRATIONS = [
+  {
+    title: "MBBS Registration",
+    sub: `Rajasthan Medical Council · Reg. No. ${APC_REGISTRATION} · 15-03-2005 · ${APC_REGISTRATION_VALIDITY}`,
+  },
+  {
+    title: "MD (Pulmonary Medicine)",
+    sub: "Additional Qualification Reg. No. 14786 · 27-06-2016",
+  },
+  {
+    title: "DNB (Critical Care Medicine)",
+    sub: "Additional Qualification Reg. No. 15791 · 16-03-2017",
+  },
+];
+
 const CERTIFICATIONS = [
   { title: "Advanced Trauma Life Support (ATLS)", year: "2012" },
   { title: "International Trauma Life Support (ITLS)", year: "2012" },
@@ -648,6 +664,25 @@ function About() {
                 </li>
               ))}
             </ol>
+          </div>
+          {/* Medical registration */}
+          <div className="mt-12">
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+              MEDICAL REGISTRATION
+            </div>
+            <ul className="mt-5 space-y-3">
+              {REGISTRATIONS.map((r) => (
+                <li
+                  key={r.title}
+                  className="rounded-2xl border border-border bg-card px-4 py-3 shadow-soft"
+                >
+                  <div className="text-sm font-semibold text-[#0a2540]">{r.title}</div>
+                  <div className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                    {r.sub}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
           {/* Awards */}
           <div className="mt-12">
@@ -1760,6 +1795,8 @@ function Footer() {
           </div>
           <div>
             Registration: {APC_REGISTRATION} — {APC_REGISTRATION_LABEL}
+            <span className="mx-1.5 text-border">·</span>
+            {APC_REGISTRATION_VALIDITY}
           </div>
         </div>
       </div>

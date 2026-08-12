@@ -95,21 +95,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         property: "og:description",
-        content: `${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
+        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
         content: `${DOCTOR_NAME} — Pulmonology, Critical Care & Sleep Medicine, Jaipur`,
-      },
-      {
-        name: "description",
-        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
-      },
-      {
-        property: "og:description",
-        content: `${DOCTOR_NAME} — ${QUALIFICATIONS_SEO}. ${DOCTOR_DESIGNATION}. ${DOCTOR_EXPERIENCE}`,
       },
       {
         name: "twitter:description",

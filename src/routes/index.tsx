@@ -186,18 +186,24 @@ function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-border/70 bg-background/88 py-2 backdrop-blur-xl"
-          : "bg-transparent py-3 sm:py-4"
+          ? "border-b border-border/70 bg-background/88 py-3.5 backdrop-blur-xl"
+          : "bg-transparent py-4 sm:py-6"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#home" className="flex items-center gap-3">
-          <img src={logoTransparent} alt="" width={50} height={50} className=" object-contain" />
-          <div className="leading-tight">
-            <div className="font-display text-[1.05rem] font-semibold text-foreground">
-              Advance Pulmo Care{" "}
+        <a href="#home" className="flex min-w-0 items-center gap-4 sm:gap-5">
+          <img
+            src={logoTransparent}
+            alt=""
+            width={80}
+            height={80}
+            className=" shrink-0 object-contain"
+          />
+          <div className="min-w-0 leading-tight">
+            <div className="font-display text-[1.45rem] font-semibold tracking-tight text-foreground sm:text-[1.55rem]">
+              Advance Pulmo Care
             </div>
-            <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="mt-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:text-[15px]">
               Dr. Rakesh Godara
             </div>
           </div>
@@ -262,7 +268,7 @@ function Header() {
 /* ---------------- Hero ---------------- */
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-24 sm:pt-32 lg:pt-40">
+    <section className="relative overflow-hidden pt-32 sm:pt-40 lg:pt-48">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18]"

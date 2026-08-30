@@ -43,6 +43,7 @@ import svcEbus from "@/assets/services/service-ebus.jpg";
 import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
 import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
 import svcLungInfection from "@/assets/services/service-lung-infection.jpg";
+import svcTuberculosis from "@/assets/services/service-tuberculosis.jpg";
 import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
 import svcIld from "@/assets/services/service-ild.jpg";
 import {
@@ -435,8 +436,8 @@ const SERVICES = [
     icon: Award,
     title: "Tuberculosis (TB)",
     desc: "Diagnosis and guided treatment of pulmonary and extrapulmonary tuberculosis, including drug-resistant disease when indicated.",
-    img: svcLungInfection,
-    alt: "Chest imaging used in tuberculosis evaluation",
+    img: svcTuberculosis,
+    alt: "Laboratory microscope used in infectious disease diagnosis",
   },
   {
     icon: HeartPulse,
@@ -570,10 +571,10 @@ function SymptomsSection() {
           ))}
         </ul>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
+        {/* <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
           Patients with these symptoms should seek a pulmonary consultation. Final clinical wording
           may be refined with Dr. Godara — this list is a practical guide, not a diagnosis.
-        </p>
+        </p> */}
       </div>
     </section>
   );

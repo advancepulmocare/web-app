@@ -141,7 +141,27 @@ export const ADULT_VACCINATIONS = [
   },
   {
     name: "Pneumococcal",
-    dosage: "1 Dose PCV13 (IM) followed by 1 Dose PPSV23 (IM) 1 year later — or 1 Dose PCV20 (IM)",
+    dosage:
+      "1 Dose PCV13 (IM) followed by 1 Dose PPSV23 (IM) 1 year later — or 1 Dose PCV20 (IM)",
+  },
+];
+
+export const WHY_ADULT_VACCINATION = [
+  {
+    title: "Protect already vulnerable lungs",
+    desc: "Adults with asthma, COPD, bronchiectasis, ILD or prior pneumonia face higher risk of severe infection — vaccination lowers that risk.",
+  },
+  {
+    title: "Prevent hospitalisation",
+    desc: "Influenza and pneumococcal disease are common triggers for sudden worsening, ICU care and long recovery in chest patients.",
+  },
+  {
+    title: "Age and immunity change",
+    desc: "After 50, natural immunity wanes. Shingles, flu and pneumococcal vaccines help close that gap before complications start.",
+  },
+  {
+    title: "Safer long-term lung care",
+    desc: "Guided adult vaccination is part of complete respiratory care — not an add-on — especially before travel, surgery or seasonal peaks.",
   },
 ];
 

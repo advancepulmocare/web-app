@@ -63,6 +63,7 @@ import {
   CLINIC_FACILITIES,
   PATIENT_PREP,
   SYMPTOMS,
+  WHY_ADULT_VACCINATION,
 } from "@/lib/doctor-profile";
 import {
   APC_PHONE_DISPLAY,
@@ -867,6 +868,28 @@ function VaccinationSection() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-4xl">
+          <div className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+            Why Adult Vaccination Matters
+          </div>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {WHY_ADULT_VACCINATION.map((w) => (
+              <div
+                key={w.title}
+                className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+              >
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <div>
+                    <div className="text-sm font-semibold text-foreground">{w.title}</div>
+                    <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{w.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

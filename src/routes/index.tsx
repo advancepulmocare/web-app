@@ -90,7 +90,7 @@ const HOME_NAV: NavItem[] = [
   { label: "Services", href: "#services", sectionId: "services" },
   // { label: "Symptoms", href: "#symptoms", sectionId: "symptoms" },
   { label: "Clinic", href: "#clinic", sectionId: "clinic" },
-  // { label: "Vaccination", href: "#vaccination", sectionId: "vaccination" },
+  { label: "Vaccination", href: "#vaccination", sectionId: "vaccination" },
   { label: "Reviews", href: "#testimonials", sectionId: "testimonials" },
 ];
 

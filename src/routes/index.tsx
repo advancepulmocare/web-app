@@ -36,6 +36,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 import gettingReady from "@/assets/getting-ready.mp4";
 import drAchievements from "@/assets/dr-achievements.webp";
 import clinicBanner from "@/assets/clinic-banner.webp";
+import awarenessPoster from "@/assets/awareness.jpeg";
 import svcAsthmaCopd from "@/assets/services/service-asthma-copd.jpg";
 import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
 import svcEbus from "@/assets/services/service-ebus.jpg";
@@ -1134,6 +1135,11 @@ function Gallery() {
       alt: "Waiting Area",
       cls: "",
     },
+    {
+      src: awarenessPoster,
+      alt: "Obstructive Sleep Apnoea (OSA) awareness — Advance Pulmo Care",
+      cls: "lg:col-span-2",
+    },
   ];
 
   return (
@@ -1194,6 +1200,20 @@ function Gallery() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+          <div className="relative aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/fccYrHKlhyo"
+              title="Advance Pulmo Care — patient awareness video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
         </div>
       </div>
     </section>

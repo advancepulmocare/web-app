@@ -63,6 +63,7 @@ import {
   CLINIC_FACILITIES,
   PATIENT_PREP,
   SYMPTOMS,
+  SYMPTOMS_EMERGENCY_NOTICE,
   WHY_ADULT_VACCINATION,
 } from "@/lib/doctor-profile";
 import {
@@ -551,16 +552,17 @@ function SymptomsSection() {
     <section id="symptoms" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow center>When to Seek Care</SectionEyebrow>
+          <SectionEyebrow center>When to Consult Dr. Godara</SectionEyebrow>
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            Do You Have Any of These <span className="gradient-text">Symptoms?</span>
+            Don&apos;t Ignore These <span className="gradient-text">Respiratory Symptoms</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Common respiratory warning signs that warrant a specialist consultation.
+            If you answer &ldquo;Yes&rdquo; to any of the following, it may be time to consult a
+            respiratory specialist.
           </p>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {SYMPTOMS.map((symptom) => (
             <li
               key={symptom}
@@ -572,10 +574,26 @@ function SymptomsSection() {
           ))}
         </ul>
 
-        {/* <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-          Patients with these symptoms should seek a pulmonary consultation. Final clinical wording
-          may be refined with Dr. Godara — this list is a practical guide, not a diagnosis.
-        </p> */}
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-destructive/25 bg-destructive/5 px-5 py-4 sm:px-6 sm:py-5">
+          <div className="text-xs font-bold uppercase tracking-[0.14em] text-destructive">
+            Important
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-foreground/90">
+            {SYMPTOMS_EMERGENCY_NOTICE}
+          </p>
+        </div>
+
+        <div className="mt-10 text-center">
+          <button
+            type="button"
+            onClick={() => (window.location.href = "#book")}
+            className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5"
+          >
+            <Calendar className="h-4 w-4" />
+            Book a Consultation
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -141,8 +141,7 @@ export const ADULT_VACCINATIONS = [
   },
   {
     name: "Pneumococcal",
-    dosage:
-      "1 Dose PCV13 (IM) followed by 1 Dose PPSV23 (IM) 1 year later — or 1 Dose PCV20 (IM)",
+    dosage: "1 Dose PCV13 (IM) followed by 1 Dose PPSV23 (IM) 1 year later — or 1 Dose PCV20 (IM)",
   },
 ];
 
@@ -165,17 +164,21 @@ export const WHY_ADULT_VACCINATION = [
   },
 ];
 
-/** Placeholder symptoms pending final wording from Dr. Godara — clinically aligned with clinic services. */
 export const SYMPTOMS = [
   "Persistent or worsening cough",
-  "Shortness of breath or breathlessness on exertion",
-  "Wheezing or noisy breathing",
-  "Chest tightness or chest pain related to breathing",
-  "Coughing up blood (hemoptysis)",
-  "Recurrent chest infections or pneumonia",
-  "Loud snoring with daytime sleepiness",
-  "Unexplained weight loss with respiratory symptoms",
+  "Shortness of breath or breathlessness during daily activities or exertion",
+  "Wheezing, noisy breathing or a whistling sound while breathing",
+  "Chest tightness or chest pain, especially when breathing or coughing",
+  "Coughing up blood or blood-stained phlegm",
+  "Frequent or recurrent chest infections or pneumonia",
+  "Loud snoring, disturbed sleep or excessive daytime sleepiness",
+  "Unexplained weight loss along with cough or other respiratory symptoms",
+  "Persistent phlegm or mucus, especially if it keeps returning",
+  "Breathing difficulties that are affecting your sleep, work, exercise or daily activities",
 ];
+
+export const SYMPTOMS_EMERGENCY_NOTICE =
+  "Some breathing problems require urgent medical attention. If you have severe difficulty breathing, significant or increasing chest pain, blue or grey lips or skin, confusion, or are coughing up a significant amount of blood, seek emergency medical care immediately rather than waiting for a routine consultation.";
 
 export const PATIENT_PREP = [
   "Bring all previous medical reports, discharge summaries and imaging CDs (X-ray, CT, PET).",

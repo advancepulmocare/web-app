@@ -551,12 +551,12 @@ function SymptomsSection() {
   return (
     <section id="symptoms" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-4xl text-center">
           <SectionEyebrow center>When to Consult Dr. Godara</SectionEyebrow>
           <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
             Don&apos;t Ignore These <span className="gradient-text">Respiratory Symptoms</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-4 text-muted-foreground lg:whitespace-nowrap">
             If you answer &ldquo;Yes&rdquo; to any of the following, it may be time to consult a
             respiratory specialist.
           </p>

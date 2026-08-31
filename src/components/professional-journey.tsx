@@ -208,6 +208,11 @@ export function ProfessionalJourney() {
   }, []);
 
   const leadershipActive = activeIndex === TIMELINE.length;
+  const activePhase = leadershipActive
+    ? PHASES.length - 1
+    : activeIndex >= 0
+      ? TIMELINE[activeIndex].phase
+      : 0;
 
   return (
     <section id="professional-journey" className="relative overflow-hidden py-20 sm:py-28">
@@ -220,35 +225,60 @@ export function ProfessionalJourney() {
             From foundation to <span className="gradient-text">respiratory leadership.</span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Over two decades of training and practice across Bikaner, New Delhi, Amritsar, Bengaluru
-            and the United States — now anchored in Jaipur.
+            Nearly three decades of training and practice across Bikaner, New Delhi, Amritsar,
+            Bengaluru, Europe and the United States — now anchored in Jaipur.
           </p>
         </div>
 
         {/* Phase overview rail */}
         <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {PHASES.map((p, i) => (
-            <div
-              key={p.label}
-              className="relative overflow-hidden rounded-2xl border border-primary/40 bg-card p-4 shadow-elevated"
-            >
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
-                  <Check className="h-3 w-3" />
-                  Phase 0{i + 1}
-                </span>
-                <span className="text-[11px] font-semibold text-primary">{p.range}</span>
+          {PHASES.map((p, i) => {
+            const current = activePhase === i;
+            const passed = i < activePhase;
+            const reached = current || passed;
+            return (
+              <div
+                key={p.label}
+                className={`relative overflow-hidden rounded-2xl border p-4 transition-all duration-500 ${
+                  reached
+                    ? "border-primary/40 bg-card shadow-elevated"
+                    : "border-border bg-card/50 shadow-none"
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span
+                    className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] transition-colors ${
+                      reached ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  >
+                    {passed && <Check className="h-3 w-3" />}
+                    Phase 0{i + 1}
+                  </span>
+                  <span
+                    className={`text-[11px] font-semibold transition-colors ${
+                      reached ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  >
+                    {p.range}
+                  </span>
+                </div>
+                <div
+                  className={`mt-2 font-display text-[0.95rem] font-semibold leading-snug transition-colors ${
+                    reached ? "text-foreground" : "text-foreground/55"
+                  }`}
+                >
+                  {p.label}
+                </div>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{p.summary}</p>
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-primary/25 transition-opacity duration-500 ${
+                    reached ? "opacity-100" : "opacity-0"
+                  }`}
+                />
               </div>
-              <div className="mt-2 font-display text-[0.95rem] font-semibold leading-snug text-foreground">
-                {p.label}
-              </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{p.summary}</p>
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-primary/25"
-              />
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Specialisation arc */}

@@ -59,7 +59,7 @@ const PROCEDURES = [
 
 export function AboutDoctorFull() {
   return (
-    <section id="about" className="relative py-24 sm:py-28">
+    <section id="about" className="relative py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
         <div className="relative order-2 lg:order-1 lg:sticky lg:top-28">
           <div className="absolute -inset-4 -z-10 rounded-[2rem] gradient-accent opacity-30 blur-2xl" />

@@ -13,7 +13,7 @@ import {
 /** Compact homepage About — education, registration and CTA to /about. */
 export function AboutDoctorTeaser() {
   return (
-    <section id="about" className="relative py-24 sm:py-28">
+    <section id="about" className="relative py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
         <div className="order-2 lg:order-1">
           <div className="relative">

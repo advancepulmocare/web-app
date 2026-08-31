@@ -42,8 +42,8 @@ import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
 import svcEbus from "@/assets/services/service-ebus.jpg";
 import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
 import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
-import svcLungInfection from "@/assets/services/service-lung-infection.jpg";
-import svcTuberculosis from "@/assets/services/service-tuberculosis.jpg";
+import svcLungInfection from "@/assets/services/service-lung-infection.png";
+import svcTuberculosis from "@/assets/services/service-tuberculosis.png";
 import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
 import svcIld from "@/assets/services/service-ild.jpg";
 import {
@@ -301,7 +301,7 @@ function Hero() {
             </div>
             <div className="leading-tight">
               <div className="text-sm font-semibold">
-                Chest Specialist, Sleep Specialist, and Interventional Pulmonologist
+                Chest Specialist, Sleep Specialist, Interventional Pulmonologist
               </div>
               <div className="text-[11px] text-muted-foreground">
                 Bronchoscopy · EBUS · Airway Procedures
@@ -352,7 +352,7 @@ function TrustStats() {
     return () => io.disconnect();
   }, []);
   return (
-    <section ref={ref} className="relative py-16 sm:py-20">
+    <section ref={ref} className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-2 gap-3 rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-8 lg:grid-cols-4 lg:gap-6">
           {STATS.map((s) => (
@@ -473,7 +473,7 @@ const SERVICES = [
 
 function Services() {
   return (
-    <section id="services" className="relative gradient-soft py-24 sm:py-28">
+    <section id="services" className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Services &amp; Treatments</SectionEyebrow>
@@ -549,7 +549,7 @@ function Services() {
 /* ---------------- Symptoms ---------------- */
 function SymptomsSection() {
   return (
-    <section id="symptoms" className="relative py-24 sm:py-28">
+    <section id="symptoms" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <SectionEyebrow center>When to Consult Dr. Godara</SectionEyebrow>
@@ -612,7 +612,7 @@ const APC_HOURS = [
 
 function ClinicSection() {
   return (
-    <section id="clinic" className="relative py-24 sm:py-28">
+    <section id="clinic" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow center>Personal Clinic</SectionEyebrow>
@@ -858,7 +858,7 @@ function ClinicSection() {
 /* ---------------- Adult Vaccination ---------------- */
 function VaccinationSection() {
   return (
-    <section id="vaccination" className="relative gradient-soft py-24 sm:py-28">
+    <section id="vaccination" className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Adult Vaccination</SectionEyebrow>
@@ -951,7 +951,7 @@ const WHY = [
 
 function WhyChoose() {
   return (
-    <section className="relative gradient-soft py-24 sm:py-28">
+    <section className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
@@ -1003,7 +1003,7 @@ const STEPS = [
 
 function Journey() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Your Patient Journey</SectionEyebrow>
@@ -1079,7 +1079,7 @@ const REVIEWS = [
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-24 sm:py-28">
+    <section id="testimonials" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
@@ -1185,7 +1185,7 @@ function Gallery() {
   ];
 
   return (
-    <section className="relative gradient-soft py-24 sm:py-28">
+    <section className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Inside the Clinic</SectionEyebrow>
@@ -1293,7 +1293,7 @@ const FAQS = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative py-24 sm:py-28">
+    <section id="faq" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
         <div className="text-center">
           <SectionEyebrow center>Frequently Asked</SectionEyebrow>
@@ -1344,7 +1344,7 @@ function FAQ() {
 /* ---------------- Patient Prep ---------------- */
 function PatientPrepSection() {
   return (
-    <section id="prepare" className="relative py-24 sm:py-28">
+    <section id="prepare" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Before Your Visit</SectionEyebrow>
@@ -1377,7 +1377,7 @@ function PatientPrepSection() {
 /* ---------------- Booking Section ---------------- */
 function BookingSection() {
   return (
-    <section id="book" className="relative gradient-soft py-24 sm:py-28">
+    <section id="book" className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div className="flex flex-col">
@@ -1667,7 +1667,7 @@ function FloatingActions() {
 
 function LegalSection() {
   return (
-    <section className="border-t border-border bg-card/70 py-16 sm:py-20">
+    <section className="border-t border-border bg-card/70 py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <article

@@ -22,6 +22,7 @@ const CONCERNS = [
   "Severe asthma / biologic therapy review",
   "Interventional pulmonology / EBUS opinion",
   "Pulmonary rehabilitation or post-ICU follow-up",
+  "Second opinion on diagnosis or treatment plan",
   OTHER_CONCERN,
 ];
 

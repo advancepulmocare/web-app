@@ -12,7 +12,6 @@ import {
   HeartPulse,
   ShieldCheck,
   Award,
-  Globe2,
   Users,
   Sparkles,
   Wind,
@@ -20,9 +19,8 @@ import {
   Syringe,
   Star,
   ArrowRight,
-  Menu,
-  X,
   CheckCircle2,
+  Scale,
   Linkedin,
   Instagram,
   Facebook,
@@ -38,13 +36,14 @@ import heroBg from "@/assets/hero-bg.jpg";
 import gettingReady from "@/assets/getting-ready.mp4";
 import drAchievements from "@/assets/dr-achievements.webp";
 import clinicBanner from "@/assets/clinic-banner.webp";
-import logoTransparent from "@/assets/logo_transparent.png";
+import awarenessPoster from "@/assets/awareness.jpeg";
 import svcAsthmaCopd from "@/assets/services/service-asthma-copd.jpg";
 import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
 import svcEbus from "@/assets/services/service-ebus.jpg";
 import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
 import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
-import svcLungInfection from "@/assets/services/service-lung-infection.jpg";
+import svcLungInfection from "@/assets/services/service-lung-infection.png";
+import svcTuberculosis from "@/assets/services/service-tuberculosis.png";
 import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
 import svcIld from "@/assets/services/service-ild.jpg";
 import {
@@ -56,8 +55,17 @@ import {
 } from "@/components/ui/dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { BookingForm } from "@/components/booking-form";
-import { ProfessionalJourney } from "@/components/professional-journey";
+import { AboutDoctorTeaser } from "@/components/about-doctor-teaser";
+import { SiteHeader, type NavItem } from "@/components/site-header";
 import { SectionEyebrow } from "@/components/section-eyebrow";
+import {
+  ADULT_VACCINATIONS,
+  CLINIC_FACILITIES,
+  PATIENT_PREP,
+  SYMPTOMS,
+  SYMPTOMS_EMERGENCY_NOTICE,
+  WHY_ADULT_VACCINATION,
+} from "@/lib/doctor-profile";
 import {
   APC_PHONE_DISPLAY,
   APC_PHONE_TEL,
@@ -68,7 +76,6 @@ import {
   DOCTOR_DESIGNATION,
   DOCTOR_EXPERIENCE,
   DOCTOR_NAME,
-  EUROPEAN_DIPLOMA_NOTE,
   GOOGLE_LISTING,
   QUALIFICATIONS_SHORT,
   RBH_MAPS,
@@ -79,13 +86,14 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Journey", href: "#professional-journey" },
-  { label: "Services", href: "#services" },
-  { label: "Clinic", href: "#clinic" },
-  { label: "Reviews", href: "#testimonials" },
+const HOME_NAV: NavItem[] = [
+  { label: "Home", href: "#home", sectionId: "home" },
+  { label: "About", href: "#about", sectionId: "about" },
+  { label: "Services", href: "#services", sectionId: "services" },
+  // { label: "Symptoms", href: "#symptoms", sectionId: "symptoms" },
+  { label: "Clinic", href: "#clinic", sectionId: "clinic" },
+  { label: "Vaccination", href: "#vaccination", sectionId: "vaccination" },
+  { label: "Reviews", href: "#testimonials", sectionId: "testimonials" },
 ];
 
 const WHATSAPP = `https://api.whatsapp.com/send/?phone=${APC_WHATSAPP_NUMBER}&text=${encodeURIComponent(
@@ -149,18 +157,20 @@ function Index() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }}
         />
-        <Header />
+        <SiteHeader nav={HOME_NAV} bookHref="#book" />
         <Hero />
         <TrustStats />
-        <About />
-        <ProfessionalJourney />
+        <AboutDoctorTeaser />
         <Services />
+        <SymptomsSection />
         <ClinicSection />
+        <VaccinationSection />
         <WhyChoose />
         <Journey />
         <Testimonials />
         <Gallery />
         <FAQ />
+        <PatientPrepSection />
         <BookingSection />
         <LegalSection />
         <Footer />
@@ -168,100 +178,6 @@ function Index() {
         <Toaster richColors position="top-center" />
       </div>
     </BookingProvider>
-  );
-}
-
-/* ---------------- Header ---------------- */
-function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border/70 bg-background/88 py-3.5 backdrop-blur-xl"
-          : "bg-transparent py-4 sm:py-6"
-      }`}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#home" className="flex min-w-0 items-center gap-4 sm:gap-5">
-          <img
-            src={logoTransparent}
-            alt=""
-            width={80}
-            height={80}
-            className=" shrink-0 object-contain"
-          />
-          <div className="min-w-0 leading-tight">
-            <div className="font-display text-[1.45rem] font-semibold tracking-tight text-foreground sm:text-[1.55rem]">
-              Advance Pulmo Care
-            </div>
-            <div className="mt-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:text-[15px]">
-              Dr. Rakesh Godara
-            </div>
-          </div>
-        </a>
-
-        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
-          {NAV.map((n) => (
-            <a
-              key={n.href}
-              href={n.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              {n.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden lg:block">
-          <button
-            onClick={() => (window.location.href = "#book")}
-            className="inline-flex items-center gap-2 rounded-full gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition hover:shadow-elevated hover:-translate-y-0.5"
-          >
-            <Calendar className="h-4 w-4" /> Book Appointment
-          </button>
-        </div>
-
-        <button
-          aria-label="Open menu"
-          className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-card lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="border-t border-border bg-background/95 backdrop-blur-xl lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
-            {NAV.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted"
-              >
-                {n.label}
-              </a>
-            ))}
-            <button
-              onClick={() => (window.location.href = "#book")}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full gradient-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
-            >
-              <Calendar className="h-4 w-4" /> Book Appointment
-            </button>
-          </div>
-        </div>
-      )}
-    </header>
   );
 }
 
@@ -298,7 +214,7 @@ function Hero() {
           <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[4.2rem]">
             Compassionate care.
             <br />
-            <span className="gradient-text">Accurate diagnosis.</span>
+            <span className="gradient-text">Expert diagnosis.</span>
             <br />
             Better breathing.
           </h1>
@@ -384,7 +300,9 @@ function Hero() {
               <Stethoscope className="h-4 w-4" />
             </div>
             <div className="leading-tight">
-              <div className="text-sm font-semibold">Interventional Pulmonology</div>
+              <div className="text-sm font-semibold">
+                Chest Specialist, Sleep Specialist, Interventional Pulmonologist
+              </div>
               <div className="text-[11px] text-muted-foreground">
                 Bronchoscopy · EBUS · Airway Procedures
               </div>
@@ -434,7 +352,7 @@ function TrustStats() {
     return () => io.disconnect();
   }, []);
   return (
-    <section ref={ref} className="relative py-16 sm:py-20">
+    <section ref={ref} className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-2 gap-3 rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-8 lg:grid-cols-4 lg:gap-6">
           {STATS.map((s) => (
@@ -469,397 +387,6 @@ function StatCard({
       </div>
       <div className="mt-2 text-sm font-medium text-muted-foreground">{label}</div>
     </div>
-  );
-}
-
-/* ---------------- About ---------------- */
-const EDUCATION = [
-  {
-    title: "MD — Pulmonary Medicine",
-    sub: "PBM Group of Hospitals, Bikaner · June 2006 – June 2009",
-  },
-  {
-    title: "IDCCM — Critical Care Medicine",
-    sub: "Sir Ganga Ram Hospital, New Delhi · January 2010 – March 2011",
-  },
-  {
-    title: "FNB — Critical Care Medicine",
-    sub: "Fortis Escorts Heart Institute, Okhla, New Delhi · March 2011 – July 2013",
-  },
-  {
-    title: "EDARM — European Diploma of Adult Respiratory Medicine",
-    sub: `${EUROPEAN_DIPLOMA_NOTE} · European Respiratory Society (ERS), Netherlands · September 2015`,
-  },
-  {
-    title: "Advanced Interventional Pulmonology & Critical Care Training",
-    sub: "December 2013 – March 2016",
-  },
-  {
-    title: "Observership in Interventional Pulmonology",
-    sub: "Cleveland Clinic, Cleveland, Ohio, USA · April 2016",
-  },
-];
-
-const REGISTRATIONS = [
-  {
-    title: "MBBS Registration",
-    sub: `Rajasthan Medical Council · Reg. No. ${APC_REGISTRATION} · 15-03-2005 · ${APC_REGISTRATION_VALIDITY}`,
-  },
-  {
-    title: "MD (Pulmonary Medicine)",
-    sub: "Additional Qualification Reg. No. 14786 · 27-06-2016",
-  },
-  {
-    title: "DNB (Critical Care Medicine)",
-    sub: "Additional Qualification Reg. No. 15791 · 16-03-2017",
-  },
-];
-
-const CERTIFICATIONS = [
-  { title: "Advanced Trauma Life Support (ATLS)", year: "2012" },
-  { title: "International Trauma Life Support (ITLS)", year: "2012" },
-  { title: "Advanced Cardiac Life Support (ACLS)", year: "2011" },
-  { title: "Winfocus Emergency Ultrasound Course", year: "2011" },
-];
-
-const AWARDS = [
-  {
-    title: "Dr. Kalicharan Mathur Best Paper Award",
-    sub: "Gold medal · 8th NCCP RajPulmocon · 2008",
-  },
-  {
-    title: "Sepsis Quiz — 2nd Position",
-    sub: "Sepsis Conference, New Delhi · 2011",
-  },
-  {
-    title: "Interesting Cases in EBUS — First Prize",
-    sub: "EUS/EBUS Conference, Noida · 2016",
-  },
-];
-
-const PREVIOUS = [
-  "Apollo Hospitals, Bengaluru",
-  "Fortis Escorts Hospitals, Amritsar, Punjab",
-  "Fortis Escorts Heart Institute, Okhla, New Delhi",
-  "Sir Ganga Ram Hospitals, New Delhi",
-  "BLK Superspeciality Hospital, New Delhi",
-  "PBM Group of Hospitals, Bikaner, Rajasthan",
-];
-
-const PUBLICATIONS = [
-  {
-    title:
-      "An innovative solution for prolonged air leaks: The customized endobronchial silicone blocker",
-    authors:
-      "Abhinav Singla, Rakesh Godara, Chakravarthi Lokanath, Suvarna Salankay, Ravindra Mehta",
-    journal: "European Respiratory Journal, 2017; 50: PA3786",
-    doi: "10.1183/1393003.congress-2017.PA3786",
-    href: "https://doi.org/10.1183/1393003.congress-2017.PA3786",
-  },
-  {
-    title:
-      "An innovative strategy for the emergent management of massive hemoptysis: The customized Endobronchial Silicone Blocker (CESB)",
-    authors: "Rakesh Godara, Rajani S Bhat, Abhinav Singla, Suvarna B G, Ravindra M Mehta",
-    journal: "American Journal of Respiratory and Critical Care Medicine, 2017; 195: A1648",
-  },
-];
-
-const PROCEDURES = [
-  {
-    icon: Microscope,
-    area: "Interventional Pulmonology",
-    items: [
-      { label: "Diagnostic bronchoscopy", volume: "8000+" },
-      { label: "EBUS-guided TBNA", volume: "500+" },
-      { label: "Rigid bronchoscopy", volume: "300+" },
-      { label: "Conventional TBNA", volume: "100+" },
-      { label: "Radial EBUS-GS TBBx", volume: "50+" },
-      { label: "Cryobiopsy", volume: "10+" },
-    ],
-  },
-  {
-    icon: Syringe,
-    area: "Pleural Procedures",
-    items: [
-      { label: "Medical thoracoscopy / pleuroscopy", volume: "" },
-      { label: "Pleural biopsy & pleurodesis", volume: "" },
-      { label: "Indwelling tunneled pleural catheter", volume: "" },
-      { label: "Ultrasound-guided pleural procedures", volume: "" },
-    ],
-  },
-  {
-    icon: HeartPulse,
-    area: "Critical Care",
-    items: [
-      { label: "Percutaneous dilatational tracheostomy", volume: "300+" },
-      { label: "Central, arterial & HD lines", volume: "1000+" },
-      { label: "Mechanical ventilation in ARDS", volume: "" },
-      { label: "ICU bronchoscopy & lung ultrasound", volume: "" },
-    ],
-  },
-  {
-    icon: Activity,
-    area: "Diagnostics & Sleep",
-    items: [
-      { label: "Full PFT with DLCO", volume: "" },
-      { label: "Forced oscillation technique (FOT)", volume: "" },
-      { label: "6-minute walk test & night oximetry", volume: "" },
-      { label: "Level I and Level III sleep studies", volume: "" },
-    ],
-  },
-];
-
-const ACADEMIC_STATS = [
-  { value: "90+", label: "Conference & CME engagements", sub: "2016 – 2026" },
-  { value: "40+", label: "Invited faculty roles", sub: "National & international" },
-  { value: "60+", label: "Lectures & talks delivered", sub: "Including panel discussions" },
-];
-
-function About() {
-  return (
-    <section id="about" className="relative py-24 sm:py-28">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
-        <div className="relative order-2 lg:order-1 lg:sticky lg:top-28">
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] gradient-accent opacity-30 blur-2xl" />
-          <div className="overflow-hidden rounded-[2rem] border border-border shadow-elevated">
-            <img
-              src={consultation}
-              alt="Dr. Rakesh Godara in consultation"
-              width={1280}
-              height={960}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="absolute -bottom-6 -right-4 hidden max-w-[260px] rounded-2xl border border-border bg-card p-4 shadow-elevated sm:block">
-            <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Own Clinic
-            </div>
-            <div className="mt-1 font-display text-base font-semibold text-foreground">
-              Advance Pulmo Care
-            </div>
-            <div className="text-xs text-muted-foreground">Jagatpura, Jaipur · 4.9 ★ (323)</div>
-          </div>
-        </div>
-
-        <div className="order-1 lg:order-2">
-          <SectionEyebrow>About the Doctor</SectionEyebrow>
-          <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            Pulmonary, critical care <span className="font-[Georgia,serif]">&amp;</span> sleep
-            medicine <span className="gradient-text">with calm precision.</span>
-          </h2>
-          <p className="mt-5 text-[0.98rem] leading-relaxed text-muted-foreground">
-            {DOCTOR_NAME} is the founder of{" "}
-            <strong className="text-foreground">Advance Pulmo Care</strong>, Jagatpura — his
-            personal chest & interventional pulmonology clinic — and serves as {DOCTOR_DESIGNATION}.{" "}
-            {DOCTOR_EXPERIENCE} He specialises in interventional pulmonology, critical care and
-            complex airway disorders, with international training and a reputation built on clarity,
-            honesty and patient-first care.
-          </p>{" "}
-          {/* Education timeline */}
-          <div className="mt-10">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              EDUCATION &amp; TRAINING
-            </div>
-            <ol className="relative mt-6 space-y-6 border-l border-slate-200 pl-6">
-              {EDUCATION.map((e) => (
-                <li key={e.title} className="relative">
-                  <span className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-300 bg-white" />
-                  <div className="text-base font-bold text-[#0a2540]">{e.title}</div>
-                  <div className="mt-1 text-sm text-[#4a5568]">{e.sub}</div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          {/* Medical registration */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              MEDICAL REGISTRATION
-            </div>
-            <ul className="mt-5 space-y-3">
-              {REGISTRATIONS.map((r) => (
-                <li
-                  key={r.title}
-                  className="rounded-2xl border border-border bg-card px-4 py-3 shadow-soft"
-                >
-                  <div className="text-sm font-semibold text-[#0a2540]">{r.title}</div>
-                  <div className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                    {r.sub}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* Awards */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              AWARDS
-            </div>
-            <ul className="mt-5 space-y-4">
-              {AWARDS.map((a) => (
-                <li key={a.title} className="flex items-start gap-3">
-                  <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <Award className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="text-base font-bold text-[#0a2540]">{a.title}</div>
-                    <div className="mt-0.5 text-sm text-[#4a5568]">{a.sub}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* Certifications */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              CERTIFICATIONS
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2.5">
-              {CERTIFICATIONS.map((c) => (
-                <span
-                  key={c.title}
-                  className="rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-semibold text-[#4a5568] shadow-sm"
-                >
-                  {c.title} · {c.year}
-                </span>
-              ))}
-            </div>
-          </div>
-          {/* Procedural skills & competencies */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              PROCEDURAL SKILLS &amp; COMPETENCIES
-            </div>
-            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {PROCEDURES.map((p) => (
-                <div
-                  key={p.area}
-                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-                      <p.icon className="h-4 w-4" />
-                    </div>
-                    <div className="font-display text-sm font-semibold text-foreground">
-                      {p.area}
-                    </div>
-                  </div>
-                  <ul className="mt-3 space-y-1.5">
-                    {p.items.map((it) => (
-                      <li
-                        key={it.label}
-                        className="flex items-baseline justify-between gap-3 text-xs text-muted-foreground"
-                      >
-                        <span>{it.label}</span>
-                        {it.volume && (
-                          <span className="shrink-0 font-display text-sm font-semibold text-primary">
-                            {it.volume}
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Academic & faculty */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              ACADEMIC &amp; FACULTY
-            </div>
-            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {ACADEMIC_STATS.map((a) => (
-                <div
-                  key={a.label}
-                  className="rounded-2xl border border-border bg-card p-4 text-center shadow-soft sm:text-left"
-                >
-                  <div className="font-display text-2xl font-semibold text-primary">{a.value}</div>
-                  <div className="mt-1 text-xs font-semibold text-foreground">{a.label}</div>
-                  <div className="mt-0.5 text-[11px] text-muted-foreground">{a.sub}</div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-              Invited faculty, panellist and organising-committee member at NAPCON, TESCON,
-              BRONCOCON, RAJPULMOCON, CAPI and ATICON, and at international meetings in Muscat,
-              Almaty, Istanbul and Abu Dhabi.
-            </p>
-          </div>
-          {/* Publications */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              PUBLICATIONS
-            </div>
-            <ol className="mt-5 space-y-4">
-              {PUBLICATIONS.map((p, i) => (
-                <li
-                  key={p.title}
-                  className="rounded-2xl border border-border bg-card p-4 shadow-soft"
-                >
-                  <div className="flex gap-3">
-                    <span className="font-display text-lg font-semibold text-primary/30">
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold leading-snug text-[#0a2540]">
-                        {p.title}
-                      </div>
-                      <div className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                        {p.authors}
-                      </div>
-                      <div className="mt-1.5 text-xs font-semibold text-foreground/80">
-                        {p.journal}
-                      </div>
-                      {p.doi && (
-                        <a
-                          href={p.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-                        >
-                          DOI: {p.doi} <ExternalLink className="h-3 w-3" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          {/* Previously associated */}
-          <div className="mt-12">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
-              PREVIOUSLY ASSOCIATED WITH
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2.5">
-              {PREVIOUS.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-semibold text-[#4a5568] shadow-sm"
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="mt-8 rounded-2xl border border-primary/15 bg-primary-soft/50 p-5">
-            <div className="text-xs font-semibold uppercase tracking-wider text-primary">
-              Areas of Special Interest
-            </div>
-            <div className="mt-2 text-sm leading-relaxed text-foreground">
-              Lung Cancer · Interstitial Lung Diseases · Pleural Diseases · Sleep Disorders
-              Associated with Cardiac and Respiratory Disease
-            </div>
-            <div className="mt-3 border-t border-primary/15 pt-3 text-xs leading-relaxed text-muted-foreground">
-              Procedural focus: Endobronchial Ultrasound (EBUS) · Rigid Bronchoscopy &amp; Central
-              Airway Obstruction · Medical Thoracoscopy / Pleuroscopy · Bronchoscopic Management of
-              Massive Haemoptysis · ARDS and Mechanical Ventilation
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -902,10 +429,31 @@ const SERVICES = [
   },
   {
     icon: Stethoscope,
-    title: "Lung Infections, Tuberculosis & Bronchiectasis",
-    desc: "Evidence-based management of pneumonia, tuberculosis and bronchiectasis.",
+    title: "Lung Infections & Bronchiectasis",
+    desc: "Evidence-based management of pneumonia, bronchiectasis and related chronic lung infections.",
     img: svcLungInfection,
     alt: "Doctor reviewing chest radiographs on a light box",
+  },
+  {
+    icon: Award,
+    title: "Tuberculosis (TB)",
+    desc: "Diagnosis and guided treatment of pulmonary and extrapulmonary tuberculosis, including drug-resistant disease when indicated.",
+    img: svcTuberculosis,
+    alt: "Laboratory microscope used in infectious disease diagnosis",
+  },
+  {
+    icon: HeartPulse,
+    title: "Hemoptysis",
+    desc: "Urgent evaluation and bronchoscopic management of coughing up blood, including massive haemoptysis when required.",
+    img: svcBronchoscopy,
+    alt: "Airway procedure suite used in hemoptysis management",
+  },
+  {
+    icon: Microscope,
+    title: "Lung Cancer Diagnosis",
+    desc: "Structured work-up for suspected lung cancer with imaging correlation, EBUS staging and tissue diagnosis.",
+    img: svcEbus,
+    alt: "Ultrasound-guided sampling for lung cancer diagnosis",
   },
   {
     icon: ShieldCheck,
@@ -925,7 +473,7 @@ const SERVICES = [
 
 function Services() {
   return (
-    <section id="services" className="relative gradient-soft py-24 sm:py-28">
+    <section id="services" className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Services &amp; Treatments</SectionEyebrow>
@@ -998,6 +546,59 @@ function Services() {
   );
 }
 
+/* ---------------- Symptoms ---------------- */
+function SymptomsSection() {
+  return (
+    <section id="symptoms" className="relative py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <SectionEyebrow center>When to Consult Dr. Godara</SectionEyebrow>
+          <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+            Don&apos;t Ignore These <span className="gradient-text">Respiratory Symptoms</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground lg:whitespace-nowrap">
+            If you answer &ldquo;Yes&rdquo; to any of the following, it may be time to consult a
+            respiratory specialist.
+          </p>
+        </div>
+
+        <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {SYMPTOMS.map((symptom) => (
+            <li
+              key={symptom}
+              className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft"
+            >
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+              <span className="text-sm font-medium leading-snug text-foreground">{symptom}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-destructive/25 bg-destructive/5 px-5 py-4 sm:px-6 sm:py-5">
+          <div className="text-xs font-bold uppercase tracking-[0.14em] text-destructive">
+            Important
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-foreground/90">
+            {SYMPTOMS_EMERGENCY_NOTICE}
+          </p>
+        </div>
+
+        <div className="mt-10 text-center">
+          <button
+            type="button"
+            onClick={() => (window.location.href = "#book")}
+            className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5"
+          >
+            <Calendar className="h-4 w-4" />
+            Book a Consultation
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- Clinic Section (Advance Pulmo Care) ---------------- */
 const APC_HOURS = [
   ["Monday", "6:00 – 8:00 PM"],
@@ -1011,7 +612,7 @@ const APC_HOURS = [
 
 function ClinicSection() {
   return (
-    <section id="clinic" className="relative py-24 sm:py-28">
+    <section id="clinic" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow center>Personal Clinic</SectionEyebrow>
@@ -1133,6 +734,47 @@ function ClinicSection() {
                   <Phone className="h-4 w-4 text-primary" /> Call Clinic
                 </a>
               </div>
+
+              <div className="mt-8 border-t border-border pt-7">
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+                  Clinic Facilities
+                </div>
+                <ol className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {CLINIC_FACILITIES.map((f, i) => {
+                    const isFirst = i === 0;
+                    return (
+                      <li
+                        key={f.title}
+                        className={`rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-soft ${
+                          isFirst ? "sm:col-span-2" : ""
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="font-display text-lg font-semibold text-primary/35">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-sm font-semibold text-foreground">{f.title}</div>
+                            {f.items.length > 0 && (
+                              <ul className={`mt-1.5 gap-x-6 gap-y-1`}>
+                                {f.items.map((item) => (
+                                  <li
+                                    key={item}
+                                    className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground"
+                                  >
+                                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary/50" />
+                                    {item}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
             </div>
           </div>
 
@@ -1213,12 +855,76 @@ function ClinicSection() {
   );
 }
 
+/* ---------------- Adult Vaccination ---------------- */
+function VaccinationSection() {
+  return (
+    <section id="vaccination" className="relative gradient-soft py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <SectionEyebrow center>Adult Vaccination</SectionEyebrow>
+          <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+            Protect your lungs with <span className="gradient-text">timely vaccination.</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Recommended adult vaccines offered or guided at Advance Pulmo Care.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-4xl overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
+          <div className="hidden grid-cols-[1.1fr_1.6fr] gap-4 border-b border-border bg-muted/40 px-6 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground sm:grid">
+            <div>Vaccine</div>
+            <div>Dosage / Route</div>
+          </div>
+          <ul className="divide-y divide-border">
+            {ADULT_VACCINATIONS.map((v) => (
+              <li
+                key={v.name}
+                className="grid grid-cols-1 gap-2 px-6 py-5 sm:grid-cols-[1.1fr_1.6fr] sm:items-start sm:gap-4"
+              >
+                <div className="font-display text-lg font-semibold text-foreground">{v.name}</div>
+                <div className="text-sm leading-relaxed text-muted-foreground">{v.dosage}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-4xl">
+          <div className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-[#8292a1]">
+            Why Adult Vaccination Matters
+          </div>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {WHY_ADULT_VACCINATION.map((w) => (
+              <div
+                key={w.title}
+                className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+              >
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <div>
+                    <div className="text-sm font-semibold text-foreground">{w.title}</div>
+                    <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{w.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- Why Choose ---------------- */
 const WHY = [
   {
     icon: Award,
     title: "Advanced Respiratory Training",
     desc: "Training across pulmonology, critical care and airway intervention.",
+  },
+  {
+    icon: Scale,
+    title: "Trusted Second Opinions",
+    desc: "Independent review of lung diagnoses, imaging and treatment plans — clarity before major decisions.",
   },
   {
     icon: HeartPulse,
@@ -1245,7 +951,7 @@ const WHY = [
 
 function WhyChoose() {
   return (
-    <section className="relative gradient-soft py-24 sm:py-28">
+    <section className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
@@ -1297,7 +1003,7 @@ const STEPS = [
 
 function Journey() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Your Patient Journey</SectionEyebrow>
@@ -1373,7 +1079,7 @@ const REVIEWS = [
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-24 sm:py-28">
+    <section id="testimonials" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
@@ -1471,10 +1177,15 @@ function Gallery() {
       alt: "Waiting Area",
       cls: "",
     },
+    {
+      src: awarenessPoster,
+      alt: "Obstructive Sleep Apnoea (OSA) awareness — Advance Pulmo Care",
+      cls: "lg:col-span-2",
+    },
   ];
 
   return (
-    <section className="relative gradient-soft py-24 sm:py-28">
+    <section className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow center>Inside the Clinic</SectionEyebrow>
@@ -1532,6 +1243,20 @@ function Gallery() {
             </div>
           ))}
         </div>
+
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+          <div className="relative aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/fccYrHKlhyo"
+              title="Advance Pulmo Care — patient awareness video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1568,7 +1293,7 @@ const FAQS = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative py-24 sm:py-28">
+    <section id="faq" className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
         <div className="text-center">
           <SectionEyebrow center>Frequently Asked</SectionEyebrow>
@@ -1616,10 +1341,43 @@ function FAQ() {
   );
 }
 
+/* ---------------- Patient Prep ---------------- */
+function PatientPrepSection() {
+  return (
+    <section id="prepare" className="relative py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <SectionEyebrow center>Before Your Visit</SectionEyebrow>
+          <h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+            How to Prepare for Your <span className="gradient-text">Consultation</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            A short checklist so your appointment is efficient and clinically useful.
+          </p>
+        </div>
+
+        <ol className="mx-auto mt-12 max-w-3xl space-y-3">
+          {PATIENT_PREP.map((item, i) => (
+            <li
+              key={item}
+              className="flex items-start gap-4 rounded-2xl border border-border bg-card px-5 py-4 shadow-soft"
+            >
+              <span className="font-display text-xl font-semibold text-primary/40">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="pt-1 text-sm leading-relaxed text-foreground">{item}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- Booking Section ---------------- */
 function BookingSection() {
   return (
-    <section id="book" className="relative gradient-soft py-24 sm:py-28">
+    <section id="book" className="relative gradient-soft py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div className="flex flex-col">
@@ -1637,8 +1395,38 @@ function BookingSection() {
               separate hospital consultation channel.
             </p>
 
+            <div className="mt-8 rounded-2xl border border-primary/20 bg-card p-5 shadow-soft">
+              <div className="flex items-start gap-3">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <Scale className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-foreground">Second Opinion Clinic</div>
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                    Already diagnosed elsewhere? Dr. Godara reviews your reports, imaging and
+                    treatment plan to confirm the diagnosis, discuss safer alternatives, and give
+                    you clarity before bronchoscopy, surgery or long-term therapy.
+                  </p>
+                  <ul className="mt-3 space-y-1.5 text-xs text-foreground/80">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                      Confirm chest / lung diagnosis and imaging findings
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                      Weigh procedure vs medical management options
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                      Reassurance before high-risk airway or lung decisions
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
             <div className="mt-auto">
-              <div className="mt-10 rounded-3xl bg-[#0a1e36] p-6 text-white shadow-elevated sm:p-7">
+              <div className="mt-8 rounded-3xl bg-[#0a1e36] p-6 text-white shadow-elevated sm:p-7">
                 <div className="text-sm font-bold">Need Direct Support?</div>
                 <p className="mt-2 text-sm text-slate-200">
                   For clinic appointment coordination, follow-up questions or status updates,
@@ -1718,7 +1506,7 @@ function Footer() {
           </div>
           <ul className="mt-5 space-y-3 text-[0.95rem] text-foreground">
             <li>
-              <a href="#about" className="hover:text-primary">
+              <a href="/about" className="hover:text-primary">
                 About the Doctor
               </a>
             </li>
@@ -1879,7 +1667,7 @@ function FloatingActions() {
 
 function LegalSection() {
   return (
-    <section className="border-t border-border bg-card/70 py-16 sm:py-20">
+    <section className="border-t border-border bg-card/70 py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <article

@@ -15,26 +15,36 @@ export function AboutDoctorTeaser() {
   return (
     <section id="about" className="relative py-24 sm:py-28">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
-        <div className="relative order-2 lg:order-1">
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] gradient-accent opacity-30 blur-2xl" />
-          <div className="overflow-hidden rounded-[2rem] border border-border shadow-elevated">
-            <img
-              src={consultation}
-              alt="Dr. Rakesh Godara in consultation"
-              width={1280}
-              height={960}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="absolute -bottom-6 -right-4 hidden max-w-[260px] rounded-2xl border border-border bg-card p-4 shadow-elevated sm:block">
-            <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Own Clinic
+        <div className="order-2 lg:order-1">
+          <div className="relative">
+            <div className="absolute -inset-4 -z-10 rounded-[2rem] gradient-accent opacity-30 blur-2xl" />
+            <div className="overflow-hidden rounded-[2rem] border border-border shadow-elevated">
+              <img
+                src={consultation}
+                alt="Dr. Rakesh Godara in consultation"
+                width={1280}
+                height={960}
+                className="h-full w-full object-cover"
+              />
             </div>
-            <div className="mt-1 font-display text-base font-semibold text-foreground">
-              Advance Pulmo Care
+            <div className="absolute -bottom-6 -right-4 hidden max-w-[260px] rounded-2xl border border-border bg-card p-4 shadow-elevated sm:block">
+              <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Own Clinic
+              </div>
+              <div className="mt-1 font-display text-base font-semibold text-foreground">
+                Advance Pulmo Care
+              </div>
+              <div className="text-xs text-muted-foreground">Jagatpura, Jaipur · 4.9 ★ (323)</div>
             </div>
-            <div className="text-xs text-muted-foreground">Jagatpura, Jaipur · 4.9 ★ (323)</div>
           </div>
+
+          <Link
+            to="/about"
+            className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5 sm:w-auto sm:justify-start"
+          >
+            Learn more about Dr. Godara
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
 
         <div className="order-1 lg:order-2">
@@ -81,14 +91,6 @@ export function AboutDoctorTeaser() {
               ))}
             </ul>
           </div>
-
-          <Link
-            to="/about"
-            className="mt-10 inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5"
-          >
-            Know more about Dr. Godara
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </div>
     </section>

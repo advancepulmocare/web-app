@@ -214,7 +214,7 @@ function Hero() {
           <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[4.2rem]">
             Compassionate care.
             <br />
-            <span className="gradient-text">Accurate diagnosis.</span>
+            <span className="gradient-text">Expert diagnosis.</span>
             <br />
             Better breathing.
           </h1>

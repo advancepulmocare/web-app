@@ -7,10 +7,10 @@ export const DOCTOR_EXPERIENCE =
   "Over 20 years of experience in pulmonary, critical care and sleep medicine, with specialised expertise in interventional pulmonology.";
 
 export const QUALIFICATIONS_SHORT =
-  "MD (Pulmonary Medicine) · IDCCM · DNB (Critical Care Medicine) · EDARM";
+  "MD (Pulmonary Medicine) · IDCCM · FNB (Critical Care Medicine) · EDARM";
 
 export const QUALIFICATIONS_SEO =
-  "MD (Pulmonary Medicine), IDCCM, DNB (Critical Care Medicine), EDARM";
+  "MD (Pulmonary Medicine), IDCCM, FNB (Critical Care Medicine), EDARM";
 
 export const EUROPEAN_DIPLOMA_NOTE = "European Diploma of Adult Respiratory Medicine (EDARM)";
 

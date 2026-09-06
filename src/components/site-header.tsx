@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Calendar, Menu, X } from "lucide-react";
-import logoTransparent from "@/assets/logo_transparent.png";
+import logoTransparent from "@/assets/logo_transparent_registered.png";
 
 export type NavItem = {
   label: string;

@@ -640,7 +640,7 @@ function ClinicSection() {
         {/* Featured clinic card */}
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative overflow-hidden rounded-[2rem] border border-primary/20 bg-card shadow-elevated">
-            <div className="absolute right-5 top-5 inline-flex items-center gap-1 rounded-full bg-support/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-support-foreground">
+            <div className="absolute right-5 top-2 xs:top-5 inline-flex items-center gap-1 rounded-full bg-support/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-support-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-support" /> Own Clinic
             </div>
             <div className="p-7 sm:p-9">
@@ -715,7 +715,7 @@ function ClinicSection() {
                       {APC_HOURS.map(([d, h]) => (
                         <div
                           key={d}
-                          className="flex items-center justify-between border-b border-dashed border-border py-1 last:border-0"
+                          className="flex xs:items-center items-start justify-between flex-col xs:flex-row border-b border-dashed border-border py-1 last:border-0"
                         >
                           <span>{d}</span>
                           <span className="font-medium text-foreground">{h}</span>

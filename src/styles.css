@@ -183,6 +183,25 @@
     transform: translateY(-10px);
   }
 }
+/* Multi-direction hero icon drift (diagonal / curved paths via CSS vars) */
+@keyframes hero-float-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(var(--fr0, 0deg)) scale(1);
+  }
+  25% {
+    transform: translate3d(var(--fx1, 20px), var(--fy1, -24px), 0) rotate(var(--fr1, 8deg))
+      scale(1.05);
+  }
+  50% {
+    transform: translate3d(var(--fx2, -18px), var(--fy2, -12px), 0) rotate(var(--fr2, -6deg))
+      scale(0.97);
+  }
+  75% {
+    transform: translate3d(var(--fx3, 14px), var(--fy3, 20px), 0) rotate(var(--fr3, 10deg))
+      scale(1.03);
+  }
+}
 @keyframes pulse-ring {
   0% {
     box-shadow: 0 0 0 0 oklch(0.65 0.14 165 / 0.55);
@@ -203,4 +222,16 @@
 }
 @utility animate-pulse-ring {
   animation: pulse-ring 2s infinite;
+}
+
+.hero-float-icon {
+  animation-name: hero-float-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-icon {
+    animation: none !important;
+  }
 }

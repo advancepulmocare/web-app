@@ -59,6 +59,7 @@ import { BookingForm } from "@/components/booking-form";
 import { AboutDoctorTeaser } from "@/components/about-doctor-teaser";
 import { SiteHeader, type NavItem } from "@/components/site-header";
 import { SectionEyebrow } from "@/components/section-eyebrow";
+import { HeroFloatingIcons } from "@/components/hero-floating-icons";
 import {
   ADULT_VACCINATIONS,
   CLINIC_FACILITIES,
@@ -185,7 +186,7 @@ function Index() {
 /* ---------------- Hero ---------------- */
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 sm:pt-40 lg:pt-48">
+    <section className="relative isolate flex min-h-svh items-center overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18]"
@@ -194,11 +195,12 @@ function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-      />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.85_0.09_215/0.5),_transparent_55%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom_left,_oklch(0.9_0.07_170/0.35),_transparent_60%)]" />
+      /> 
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.85_0.09_215/0.5),_transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom_left,_oklch(0.9_0.07_170/0.35),_transparent_60%)]" />
+      <HeroFloatingIcons />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 pb-16 sm:px-8 sm:pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-32">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 px-5 py-28 sm:gap-10 sm:px-8 sm:py-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-28">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/70 px-4 py-1.5 text-xs font-medium text-primary shadow-soft backdrop-blur">
             <Sparkles className="h-3.5 w-3.5 shrink-0" />
@@ -212,7 +214,7 @@ function Hero() {
             </span>
           </div>
 
-          <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[4.2rem]">
+          <h1 className="mt-5 max-w-[11ch] font-display text-[2.15rem] font-semibold leading-[1.03] tracking-tight text-foreground sm:max-w-none sm:text-5xl lg:text-[3.75rem] xl:text-[4.2rem]">
             Compassionate care.
             <br />
             <span className="gradient-text">Expert diagnosis.</span>
@@ -256,7 +258,7 @@ function Hero() {
                 key={b.label}
                 className="flex items-center gap-2.5 rounded-2xl border border-border/70 bg-card/70 px-4 py-3 text-sm text-foreground shadow-soft backdrop-blur"
               >
-                <b.icon className="h-4 w-4 text-primary" />
+                <b.icon className="h-4 w-4 shrink-0 text-primary" />
                 <span className="font-medium">{b.label}</span>
               </div>
             ))}

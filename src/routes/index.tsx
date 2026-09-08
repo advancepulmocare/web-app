@@ -46,6 +46,7 @@ import svcLungInfection from "@/assets/services/service-lung-infection.png";
 import svcTuberculosis from "@/assets/services/service-tuberculosis.png";
 import svcRehabilitation from "@/assets/services/service-rehabilitation.jpg";
 import svcIld from "@/assets/services/service-ild.jpg";
+import svcSecondOpinion from "@/assets/services/service-second-opinion.png";
 import {
   Dialog,
   DialogContent,
@@ -248,7 +249,7 @@ function Hero() {
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
               { icon: Award, label: "20+ Years of Pulmonary, Critical Care & Sleep Medicine" },
-              { icon: Star, label: "4.9 ★ · 323+ Google Reviews" },
+              { icon: Star, label: "4.9 ★ · 400+ Google Reviews" },
               { icon: HeartPulse, label: "Trusted by Patients" },
             ].map((b) => (
               <div
@@ -288,7 +289,7 @@ function Hero() {
             </div>
             <div className="leading-tight">
               <div className="text-sm font-semibold">4.9 ★ Rating</div>
-              <div className="text-[11px] text-muted-foreground">323+ Google reviews</div>
+              <div className="text-[11px] text-muted-foreground">400+ Google reviews</div>
             </div>
           </div>
 
@@ -468,6 +469,13 @@ const SERVICES = [
     desc: "Evaluation and multidisciplinary management of interstitial lung disease, pulmonary fibrosis, hypersensitivity pneumonitis and sarcoidosis.",
     img: svcIld,
     alt: "Anatomical cross-section model of human lungs",
+  },
+  {
+    icon: Scale,
+    title: "Second Opinion",
+    desc: "Independent review of lung diagnoses, imaging and treatment plans — clarity before bronchoscopy, surgery or long-term therapy.",
+    img: svcSecondOpinion,
+    alt: "Specialist reviewing medical reports with a patient during a second-opinion consultation",
   },
 ];
 
@@ -656,7 +664,7 @@ function ClinicSection() {
                 </div>
                 <div className="text-sm font-semibold text-foreground">
                   4.9 ·{" "}
-                  <span className="text-muted-foreground font-medium">323+ Google reviews</span>
+                  <span className="text-muted-foreground font-medium">400+ Google reviews</span>
                 </div>
                 <a
                   href={GOOGLE_LISTING}
@@ -1097,7 +1105,7 @@ function Testimonials() {
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-primary hover:border-primary/30"
           >
-            View all 323+ reviews <ExternalLink className="h-3.5 w-3.5" />
+            View all 400+ reviews <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
 
@@ -1177,11 +1185,11 @@ function Gallery() {
       alt: "Waiting Area",
       cls: "",
     },
-    {
-      src: awarenessPoster,
-      alt: "Obstructive Sleep Apnoea (OSA) awareness — Advance Pulmo Care",
-      cls: "lg:col-span-2",
-    },
+    // {
+    //   src: awarenessPoster,
+    //   alt: "Obstructive Sleep Apnoea (OSA) awareness — Advance Pulmo Care",
+    //   cls: "lg:col-span-2",
+    // },
   ];
 
   return (
@@ -1395,7 +1403,7 @@ function BookingSection() {
               separate hospital consultation channel.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-primary/20 bg-card p-5 shadow-soft">
+            {/* <div className="mt-8 rounded-2xl border border-primary/20 bg-card p-5 shadow-soft">
               <div className="flex items-start gap-3">
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                   <Scale className="h-5 w-5" />
@@ -1423,7 +1431,7 @@ function BookingSection() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-auto">
               <div className="mt-8 rounded-3xl bg-[#0a1e36] p-6 text-white shadow-elevated sm:p-7">

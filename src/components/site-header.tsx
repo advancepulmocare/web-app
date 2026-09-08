@@ -2,6 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Calendar, Menu, X } from "lucide-react";
 import logoTransparent from "@/assets/logo_transparent_registered.png";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export type NavItem = {
   label: string;
@@ -22,6 +28,7 @@ type SiteHeaderProps = {
 export function SiteHeader({ nav, activeLabel, bookHref = "/#book" }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [logoOpen, setLogoOpen] = useState(false);
   const [active, setActive] = useState(activeLabel ?? nav[0]?.label ?? "");
 
   useEffect(() => {
@@ -96,23 +103,30 @@ export function SiteHeader({ nav, activeLabel, bookHref = "/#book" }: SiteHeader
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link to="/" className="flex min-w-0 items-center gap-4 sm:gap-5">
-          <img
-            src={logoTransparent}
-            alt=""
-            width={88}
-            height={88}
-            className="h-16 w-16 shrink-0 object-contain sm:h-[5.5rem] sm:w-[5.5rem]"
-          />
-          <div className="min-w-0 leading-tight">
+        <div className="flex min-w-0 items-center gap-4 sm:gap-5">
+          <button
+            type="button"
+            onClick={() => setLogoOpen(true)}
+            aria-label="View Advance Pulmo Care logo"
+            className="shrink-0 cursor-zoom-in rounded-xl outline-none transition hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <img
+              src={logoTransparent}
+              alt="Advance Pulmo Care"
+              width={88}
+              height={88}
+              className="h-16 w-16 object-contain sm:h-[5.5rem] sm:w-[5.5rem]"
+            />
+          </button>
+          <Link to="/" className="min-w-0 leading-tight">
             <div className="font-display text-[1.55rem] font-semibold tracking-tight text-foreground sm:text-[1.95rem]">
               Advance Pulmo Care
             </div>
             <div className="mt-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:text-[15px]">
               Dr. Rakesh Godara
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
 
         <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
           {nav.map((n) => renderLink(n))}
@@ -154,6 +168,22 @@ export function SiteHeader({ nav, activeLabel, bookHref = "/#book" }: SiteHeader
           </div>
         </div>
       )}
+
+      <Dialog open={logoOpen} onOpenChange={setLogoOpen}>
+        <DialogContent className="max-w-lg border-border bg-card p-6 sm:rounded-3xl sm:p-10">
+          <DialogTitle className="sr-only">Advance Pulmo Care logo</DialogTitle>
+          <DialogDescription className="sr-only">
+            Enlarged clinic logo for Advance Pulmo Care
+          </DialogDescription>
+          <img
+            src={logoTransparent}
+            alt="Advance Pulmo Care"
+            width={560}
+            height={560}
+            className="mx-auto h-auto w-full max-w-[360px] object-contain sm:max-w-[420px]"
+          />
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }

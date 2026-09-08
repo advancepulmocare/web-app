@@ -79,7 +79,7 @@ export function AboutDoctorFull() {
             <div className="mt-1 font-display text-base font-semibold text-foreground">
               Advance Pulmo Care
             </div>
-            <div className="text-xs text-muted-foreground">Jagatpura, Jaipur · 4.9 ★ (323)</div>
+            <div className="text-xs text-muted-foreground">Jagatpura, Jaipur · 4.9 ★ (400)</div>
           </div>
         </div>
 

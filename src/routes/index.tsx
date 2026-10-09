@@ -39,7 +39,8 @@ import clinicBanner from "@/assets/clinic-banner.webp";
 import awarenessPoster from "@/assets/awareness.jpeg";
 import svcAsthmaCopd from "@/assets/services/service-asthma-copd.jpg";
 import svcBronchoscopy from "@/assets/services/service-bronchoscopy.jpg";
-import svcEbus from "@/assets/services/service-ebus.jpg";
+import svcEbus from "@/assets/services/service-ebus.png";
+import svcLungCancerDiagnosis from "@/assets/services/service-lung-cancer-diagnosis.png";
 import svcThoracoscopy from "@/assets/services/service-thoracoscopy.jpg";
 import svcCriticalCare from "@/assets/services/service-critical-care.jpg";
 import svcLungInfection from "@/assets/services/service-lung-infection.png";
@@ -455,7 +456,7 @@ const SERVICES = [
     icon: Microscope,
     title: "Lung Cancer Diagnosis",
     desc: "Structured work-up for suspected lung cancer with imaging correlation, EBUS staging and tissue diagnosis.",
-    img: svcEbus,
+    img: svcLungCancerDiagnosis,
     alt: "Ultrasound-guided sampling for lung cancer diagnosis",
   },
   {

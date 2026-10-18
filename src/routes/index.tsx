@@ -1537,7 +1537,7 @@ function Footer() {
               </a>
             </li>
             <li>
-              <a href="#privacy-policy" className="hover:text-primary">
+              <a href="/privacy" className="hover:text-primary">
                 Privacy Policy
               </a>
             </li>
@@ -1694,6 +1694,12 @@ function LegalSection() {
               medical information through the routine booking form. For corrections or follow-up,
               contact the clinic at {APC_PHONE_DISPLAY}.
             </p>
+            <a
+              href="/privacy"
+              className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+            >
+              Read the full Privacy Policy →
+            </a>
           </article>
 
           <article

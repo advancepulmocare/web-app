@@ -178,11 +178,11 @@ function PrivacyPage() {
                 </a>
               </div>
             </div>
-            <p className="mt-4 text-xs">
+            {/* <p className="mt-4 text-xs">
               This policy describes our intended privacy practices and is not a formal legal
               opinion. For advice on applicable Indian privacy requirements, consult a qualified
               lawyer.
-            </p>
+            </p> */}
           </section>
         </div>
       </main>
